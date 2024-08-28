@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
     <title>Changanacherry Campus Meet 2024</title>
     <!-- <link rel="stylesheet" href="main.css"> -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -232,16 +233,57 @@
             /* Centers the image horizontally */
             align-items: center;
             /* Centers the image vertically (if needed) */
-            height: 24vh;
+            /* height: 10vh; */
             /* Adjust height if needed or remove if not necessary */
         }
 
         .responsive-img {
-            max-width: 20%;
-            /* Ensures the image scales with its container */
-            height: auto;
-            /* Maintains the aspect ratio */
-        }
+    max-width: 20%;
+    height: auto;
+    /* Ensures the image scales with its container and maintains aspect ratio */
+    display: block;
+    /* Removes bottom whitespace */
+    margin-left: auto;
+    margin-right: auto;
+    /* Centers the image horizontally */
+}
+
+/* Optional: Fine-tuning for smaller devices */
+@media (max-width: 768px) {
+    .responsive-img {
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 480px) {
+    .responsive-img {
+        max-width: 70%;
+    }
+}
+
+.responsive-theme {
+    max-width: 30%;
+    height: auto;
+    /* Ensures the image scales with its container and maintains aspect ratio */
+    display: block;
+    /* Removes bottom whitespace */
+    margin-left: auto;
+    margin-right: auto;
+    /* Centers the image horizontally */
+}
+
+/* Optional: Fine-tuning for smaller devices */
+@media (max-width: 768px) {
+    .responsive-theme {
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 480px) {
+    .responsive-theme {
+        max-width: 70%;
+    }
+}
     </style>
 
     <style>
@@ -278,18 +320,21 @@
 
         <!-- Content with Fade-In Animation -->
         <div class="relative z-10 py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12 rounded-lg fade-in">
-            <div class="mt-4 centered-container">
+            <div class="mt-0 centered-container">
                 <img src="logo.png" alt="Description of the image" class="responsive-img">
             </div>
-            <div class="mt-8">
+            <div class="mt-4 centered-container">
+                <img src="theme.png" alt="Description of the image" class="responsive-theme">
+            </div>
+            <div class="mt-4">
                 <h1
                     class="mb-4 text-3xl font-bold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
                     CHANGANACHERRY CAMPUS MEET 2024</h1>
             </div>
             <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-white">Kristu Jyoti
-                Auditorium, Chethipuzha | October 10 - 13</p>
+                Auditorium, Chethipuzha<br>October 10 - 13</p>
             <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-                <div class="mt-4">
+                <div class="mt-0">
                     <a href="form.html"
                         class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white backdrop-blur-lg rounded-lg border border-white hover:bg-white-800 focus:ring-white-300 dark:focus:ring-white-900">
                         Register Now
@@ -303,34 +348,30 @@
                 </div>
             </div>
             <div class="mt-0 p-0">
-                <!-- <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-center">Event Starts In:</h2> -->
-                <div class="flex justify-center space-x-4">
+                <div class="flex justify-center space-x-2">
                     <!-- Days Box -->
-                    <div
-                        class="flex flex-col items-center box-animation bg-transparent border border-white border-opacity-20 backdrop-blur-lg rounded-lg p-6 shadow-lg">
-                        <span id="days" class="text-5xl font-bold text-white">00</span>
-                        <span class="text-sm text-white mt-2">Days</span>
+                    <div class="flex flex-col items-center box-animation bg-transparent border border-white border-opacity-20 backdrop-blur-lg rounded-lg p-3 sm:p-6 shadow-lg">
+                        <span id="days" class="text-3xl sm:text-5xl font-bold text-white">00</span>
+                        <span class="text-xs sm:text-sm text-white mt-2">Days</span>
                     </div>
                     <!-- Hours Box -->
-                    <div
-                        class="flex flex-col items-center box-animation bg-transparent border border-white border-opacity-20 backdrop-blur-lg rounded-lg p-6 shadow-lg">
-                        <span id="hours" class="text-5xl font-bold text-white">00</span>
-                        <span class="text-sm text-white mt-2">Hours</span>
+                    <div class="flex flex-col items-center box-animation bg-transparent border border-white border-opacity-20 backdrop-blur-lg rounded-lg p-3 sm:p-6 shadow-lg">
+                        <span id="hours" class="text-3xl sm:text-5xl font-bold text-white">00</span>
+                        <span class="text-xs sm:text-sm text-white mt-2">Hours</span>
                     </div>
                     <!-- Minutes Box -->
-                    <div
-                        class="flex flex-col items-center box-animation bg-transparent border border-white border-opacity-20 backdrop-blur-lg rounded-lg p-6 shadow-lg">
-                        <span id="minutes" class="text-5xl font-bold text-white">00</span>
-                        <span class="text-sm text-white mt-2">Minutes</span>
+                    <div class="flex flex-col items-center box-animation bg-transparent border border-white border-opacity-20 backdrop-blur-lg rounded-lg p-3 sm:p-6 shadow-lg">
+                        <span id="minutes" class="text-3xl sm:text-5xl font-bold text-white">00</span>
+                        <span class="text-xs sm:text-sm text-white mt-2">Minutes</span>
                     </div>
                     <!-- Seconds Box -->
-                    <div
-                        class="flex flex-col items-center box-animation bg-transparent border border-white border-opacity-20 backdrop-blur-lg rounded-lg p-6 shadow-lg">
-                        <span id="seconds" class="text-5xl font-bold text-white">00</span>
-                        <span class="text-sm text-white mt-2">Seconds</span>
+                    <div class="flex flex-col items-center box-animation bg-transparent border border-white border-opacity-20 backdrop-blur-lg rounded-lg p-3 sm:p-6 shadow-lg">
+                        <span id="seconds" class="text-3xl sm:text-5xl font-bold text-white">00</span>
+                        <span class="text-xs sm:text-sm text-white mt-2">Seconds</span>
                     </div>
                 </div>
             </div>
+                        
         </div>
     </section>
 
