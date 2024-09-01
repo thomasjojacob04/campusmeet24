@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
     <title>Registration Form</title>
     <!-- <link rel="stylesheet" href="main.css"> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
@@ -25,7 +26,7 @@
         }
 
         .animate-gradient {
-            background: linear-gradient(-45deg, #3b82f6, #2563eb, #1d4ed8, #1e40af);
+            background: linear-gradient(-45deg, #000000, #000000, #000000, #000000);
             background-size: 400% 400%;
             animation: gradient 3s ease infinite;
         }
@@ -45,16 +46,101 @@
         #registerBtn {
             animation: pulse 2s infinite;
         }
+
+        .centered-container {
+            display: flex;
+            justify-content: center;
+            /* Centers the image horizontally */
+            align-items: center;
+            /* Centers the image vertically (if needed) */
+            /* height: 10vh; */
+            /* Adjust height if needed or remove if not necessary */
+        }
+
+        .responsive-img {
+            max-width: 20%;
+            height: auto;
+            /* Ensures the image scales with its container and maintains aspect ratio */
+            display: block;
+            /* Removes bottom whitespace */
+            margin-left: auto;
+            margin-right: auto;
+            /* Centers the image horizontally */
+        }
+
+        /* Optional: Fine-tuning for smaller devices */
+        @media (max-width: 768px) {
+            .responsive-img {
+                max-width: 50%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .responsive-img {
+                max-width: 60%;
+            }
+        }
+
+        .responsive-foot {
+            max-width: 10%;
+            height: auto;
+            /* Ensures the image scales with its container and maintains aspect ratio */
+            display: block;
+            /* Removes bottom whitespace */
+            margin-left: auto;
+            margin-right: auto;
+            /* Centers the image horizontally */
+        }
+
+        /* Optional: Fine-tuning for smaller devices */
+        @media (max-width: 768px) {
+            .responsive-foot {
+                max-width: 30%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .responsive-foot {
+                max-width: 30%;
+            }
+        }
+
+        .responsive-jy {
+            max-width: 2.5%;
+            height: auto;
+            /* Ensures the image scales with its container and maintains aspect ratio */
+            display: block;
+            /* Removes bottom whitespace */
+            margin-left: auto;
+            margin-right: auto;
+            /* Centers the image horizontally */
+        }
+
+        /* Optional: Fine-tuning for smaller devices */
+        @media (max-width: 768px) {
+            .responsive-jy {
+                max-width: 6%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .responsive-jy {
+                max-width: 10%;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <section class="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center">
+    <section class="bg-black dark:bg-black-900 min-h-screen flex items-center justify-center">
         <div class="w-full max-w-2xl px-6 py-8 mx-auto space-y-6">
-            <h1 class="text-3xl font-bold leading-tight tracking-tight text-blue-500 text-center">
+            <div class="mt-0 centered-container">
+                <img src="logo.png" alt="Description of the image" class="responsive-img">
+            </div>
+            <h1 class="text-3xl font-bold leading-tight tracking-tight text-yellow-400 text-center">
                 CAMPUS MEET' 24 REGISTRATION
             </h1>
-            <div class="container mx-auto p-4"></div>
+            <div class="container mx-auto"></div>
             <form id="registration-form"
                 action="https://script.google.com/macros/s/AKfycbzLzrCRisynkeOSemIPbKRv1gZUSPvDdigkon8bPrF80xN27y9OZPkPAzrMpUbxpuXJdg/exec"
                 method="post" class="space-y-6">
@@ -63,7 +149,7 @@
                         Full Name <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="name" id="name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                         placeholder="Enter your Full Name" required>
                 </div>
                 <div>
@@ -73,12 +159,12 @@
                     <div class="flex flex-col space-y-4 mt-4 ml-4">
                         <div>
                             <input type="radio" name="gender" id="male" value="Male" style="width: 16px; height: 16px"
-                                class="mr-2" required>
+                            class="mr-2 w-4 h-4 text-yellow-500 bg-white-100 border-white-300 focus:ring-yellow-500 focus:border-yellow-500 dark:bg-white-700 dark:border-gray-600 dark:focus:ring-yellow-500 dark:ring-offset-gray-800 checked:bg-yellow-500 checked:border-yellow-500" required>
                             <label for="male" class="text-base font-medium text-gray-900 dark:text-white">Male</label>
                         </div>
                         <div>
                             <input type="radio" name="gender" id="female" value="Female"
-                                style="width: 16px; height: 16px" class="mr-2" required>
+                                style="width: 16px; height: 16px" class="mr-2 w-4 h-4 text-yellow-500 bg-white-100 border-white-300 focus:ring-yellow-500 focus:border-yellow-500 dark:bg-white-700 dark:border-gray-600 dark:focus:ring-yellow-500 dark:ring-offset-gray-800 checked:bg-yellow-500 checked:border-yellow-500" required>
                             <label for="female"
                                 class="text-base font-medium text-gray-900 dark:text-white">Female</label>
                         </div>
@@ -89,7 +175,7 @@
                         Contact Number <span class="text-red-500">*</span>
                     </label>
                     <input type="tel" name="contact-number" id="contact-number"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                         placeholder="+91 12345 67890" required>
                 </div>
                 <div>
@@ -97,7 +183,7 @@
                         Email <span class="text-red-500">*</span>
                     </label>
                     <input type="email" name="email" id="email"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                         placeholder="abc@gmail.com" required>
                 </div>
                 <div>
@@ -105,7 +191,7 @@
                         Address <span class="text-red-500">*</span>
                     </label>
                     <textarea name="address" id="address"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                         placeholder="Enter your Address" required></textarea>
                 </div>
                 <div>
@@ -113,7 +199,7 @@
                         College <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="college" id="college"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                         placeholder="Enter Full Name of College with Place (SB College, Changanacherry)" required>
                 </div>
                 <div>
@@ -121,7 +207,7 @@
                         Course <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="course" id="course"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                         placeholder="Specify Course with Branch (B.Tech in Computer Science)" required>
                 </div>
                 <div>
@@ -130,31 +216,31 @@
                     </label>
                     <div class="flex flex-col space-y-4 mt-4 ml-4">
                         <div>
-                            <input type="radio" name="year" id="first-year" value="1st Year"
+                            <input type="radio" name="year" id="first-year" value="1st Year" class="mr-2 w-4 h-4 text-yellow-500 bg-white-100 border-white-300 focus:ring-yellow-500 focus:border-yellow-500 dark:bg-white-700 dark:border-gray-600 dark:focus:ring-yellow-500 dark:ring-offset-gray-800 checked:bg-yellow-500 checked:border-yellow-500"
                                 style="width: 16px; height: 16px" class="mr-2" required>
                             <label for="first-year" class="text-base font-medium text-gray-900 dark:text-white">1st
                                 Year</label>
                         </div>
                         <div>
-                            <input type="radio" name="year" id="second-year" value="2nd Year"
+                            <input type="radio" name="year" id="second-year" value="2nd Year" class="mr-2 w-4 h-4 text-yellow-500 bg-white-100 border-white-300 focus:ring-yellow-500 focus:border-yellow-500 dark:bg-white-700 dark:border-gray-600 dark:focus:ring-yellow-500 dark:ring-offset-gray-800 checked:bg-yellow-500 checked:border-yellow-500"
                                 style="width: 16px; height: 16px" class="mr-2" required>
                             <label for="second-year" class="text-base font-medium text-gray-900 dark:text-white">2nd
                                 Year</label>
                         </div>
                         <div>
-                            <input type="radio" name="year" id="third-year" value="3rd Year"
+                            <input type="radio" name="year" id="third-year" value="3rd Year" class="mr-2 w-4 h-4 text-yellow-500 bg-white-100 border-white-300 focus:ring-yellow-500 focus:border-yellow-500 dark:bg-white-700 dark:border-gray-600 dark:focus:ring-yellow-500 dark:ring-offset-gray-800 checked:bg-yellow-500 checked:border-yellow-500"
                                 style="width: 16px; height: 16px" class="mr-2" required>
                             <label for="third-year" class="text-base font-medium text-gray-900 dark:text-white">3rd
                                 Year</label>
                         </div>
                         <div>
-                            <input type="radio" name="year" id="fourth-year" value="4th Year"
+                            <input type="radio" name="year" id="fourth-year" value="4th Year" class="mr-2 w-4 h-4 text-yellow-500 bg-white-100 border-white-300 focus:ring-yellow-500 focus:border-yellow-500 dark:bg-white-700 dark:border-gray-600 dark:focus:ring-yellow-500 dark:ring-offset-gray-800 checked:bg-yellow-500 checked:border-yellow-500"
                                 style="width: 16px; height: 16px" class="mr-2" required>
                             <label for="fourth-year" class="text-base font-medium text-gray-900 dark:text-white">4th
                                 Year</label>
                         </div>
                         <div>
-                            <input type="radio" name="year" id="fifth-year" value="5th Year"
+                            <input type="radio" name="year" id="fifth-year" value="5th Year" class="mr-2 w-4 h-4 text-yellow-500 bg-white-100 border-white-300 focus:ring-yellow-500 focus:border-yellow-500 dark:bg-white-700 dark:border-gray-600 dark:focus:ring-yellow-500 dark:ring-offset-gray-800 checked:bg-yellow-500 checked:border-yellow-500"
                                 style="width: 16px; height: 16px" class="mr-2" required>
                             <label for="fifth-year" class="text-base font-medium text-gray-900 dark:text-white">5th
                                 Year</label>
@@ -167,13 +253,13 @@
                     </label>
                     <div class="flex flex-col space-y-4 mt-4 ml-4">
                         <div>
-                            <input type="radio" name="zone" id="zone1" value="Changanacherry"
+                            <input type="radio" name="zone" id="zone1" value="Changanacherry" class="mr-2 w-4 h-4 text-yellow-500 bg-white-100 border-white-300 focus:ring-yellow-500 focus:border-yellow-500 dark:bg-white-700 dark:border-gray-600 dark:focus:ring-yellow-500 dark:ring-offset-gray-800 checked:bg-yellow-500 checked:border-yellow-500"
                                 style="width: 16px; height: 16px" class="mr-2" required>
                             <label for="zone1"
                                 class="text-base font-medium text-gray-900 dark:text-white">Changanacherry</label>
                         </div>
                         <div>
-                            <input type="radio" name="zone" id="other-zone" value="Other Zone"
+                            <input type="radio" name="zone" id="other-zone" value="Other Zone" class="mr-2 w-4 h-4 text-yellow-500 bg-white-100 border-white-300 focus:ring-yellow-500 focus:border-yellow-500 dark:bg-white-700 dark:border-gray-600 dark:focus:ring-yellow-500 dark:ring-offset-gray-800 checked:bg-yellow-500 checked:border-yellow-500"
                                 style="width: 16px; height: 16px" class="mr-2" onclick="toggleOtherZoneInput()"
                                 required>
                             <label for="other-zone"
@@ -187,7 +273,8 @@
                         </label>
 
                         <select name="otherZone" id="zoneDropdown" id="other-zone-input"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-yellow-500 focus:border-yellow-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500">>
+                         <div>   
                             <option value="">Select Zone</option>
                             <option name="otherZone" value="Neyyattinkara">Neyyattinkara</option>
                             <option name="otherZone" value="Trivandrum">Trivandrum</option>
@@ -211,15 +298,16 @@
                             <option name="otherZone" value="Thalaserry">Thalaserry</option>
                             <option name="otherZone" value="Kannur">Kannur</option>
                             <option name="otherZone" value="Kasargod">Kasargod</option>
+                        </div>
                         </select>
                     </div>
                 </div>
                 <div class="mt-8">
                     <button id="registerBtn" type="submit"
-                        class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center justify-center transition-all duration-300 ease-in-out">
+                        class="w-full text-black bg-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-800 inline-flex items-center justify-center transition-all duration-300 ease-in-out">
                         <span id="buttonText" class="relative z-10">Register</span>
                         <span id="loadingContainer"
-                            class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                            class="absolute inset-0 flex items-center justify-center w-full text-black bg-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-800 inline-flex opacity-0 transition-opacity duration-300">
                             <svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
@@ -235,6 +323,54 @@
         </div>
         </div>
     </section>
+
+    <footer class="p-4 bg-black md:p-8 lg:p-10">
+        <div class="mx-auto max-w-screen-xl text-center">
+            <div class="">
+                <img src="logo.png" alt="Description of the image" class="responsive-foot">
+            </div>
+            <p class="my-6 text-white mt-6 mb-4 text-3xl font-regular tracking-tight leading-none md:text-4xl lg:text-2xl text-center">Contact Us</p>
+
+<hr class="w-48 border-t-2 border-yellow-400 mx-auto my-4">
+
+<div class="flex flex-col lg:flex-row justify-center items-center space-y-4 lg:space-y-0 lg:space-x-6">
+    <!-- Contact 1 -->
+    <div class="text-white text-lg lg:text-base text-center">
+        <p>Fr. Aby Vadakumthala</p>
+        <p><a href="tel:+919495643763" class="text-yellow-400 hover:underline">9495643763</a></p>
+    </div>
+
+    <!-- Contact 2 -->
+    <div class="text-white text-lg lg:text-base text-center">
+        <p>Tom Mathew</p>
+        <p><a href="tel:+918138009028" class="text-yellow-400 hover:underline">8138009028</a></p>
+    </div>
+
+    <!-- Contact 3 -->
+    <div class="text-white text-lg lg:text-base text-center">
+        <p>Abin Mathew</p>
+        <p><a href="tel:+918848185966" class="text-yellow-400 hover:underline">8848185966</a></p>
+    </div>
+
+    <!-- Contact 4 -->
+    <div class="text-white text-lg lg:text-base text-center">
+        <p>Bennit Antony</p>
+        <p><a href="tel:+919526787543" class="text-yellow-400 hover:underline">9526787543</a></p>
+    </div>
+</div>
+
+
+
+
+<div class="mt-8">
+    <img src="jy.png" alt="Description of the image" class="responsive-jy">
+</div>
+<div class="mt-2">
+            <span class="text-sm text-white sm:text-center text-white">Copyright © Changanacherry Campus
+                Ministry - All Rights Reserved.</span>
+        </div>
+        </div>
+    </footer>
 
     <!-- Main modal -->
     <div id="successModal" tabindex="-1" aria-hidden="true"
@@ -255,7 +391,7 @@
                     </div>
                     <p class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Registration Successfull</p>
                     <button id="continueButton" type="button"
-                        class="py-2 px-3 text-sm font-medium text-center text-white rounded-lg bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-900">
+                        class="py-2 px-3 text-sm font-medium text-center text-black rounded-lg bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-yellow-500">
                         Continue
                     </button>
                 </div>
@@ -303,7 +439,7 @@
             if (isLoading) {
                 registerBtn.disabled = true;
                 registerBtn.classList.add('animate-gradient', 'cursor-not-allowed');
-                registerBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                registerBtn.classList.remove('bg-yellow-400', 'hover:bg-yellow-500');
                 buttonText.classList.add('opacity-0');
                 loadingContainer.classList.remove('opacity-0');
                 setTimeout(() => {
@@ -313,7 +449,7 @@
             } else {
                 registerBtn.disabled = false;
                 registerBtn.classList.remove('animate-gradient', 'cursor-not-allowed');
-                registerBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                registerBtn.classList.add('bg-yellow-400', 'hover:bg-yellow-500');
                 buttonText.classList.add('opacity-0');
                 loadingContainer.classList.add('opacity-0');
                 setTimeout(() => {
