@@ -778,6 +778,41 @@
                 /* Smaller width for small screens */
             }
         }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: 15% auto;
+            display: block;
+            max-width: 80%;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            color: #fff;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -972,61 +1007,67 @@
         <div data-aos="zoom-in-up" class="gallery-container">
             <div class="gallery">
                 <div class="gallery-row">
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('1.jpg')">
                         <img src="1.jpg" alt="Image 1">
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('2.jpg')">
                         <img src="2.jpg" alt="Image 2">
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('3.jpg')">
                         <img src="3.jpg" alt="Image 3">
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('4.jpg')">
                         <img src="4.jpg" alt="Image 4">
                     </div>
                     <!-- Duplicating items for continuous scroll -->
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('1.jpg')">
                         <img src="1.jpg" alt="Image 1">
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('2.jpg')">
                         <img src="2.jpg" alt="Image 2">
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('3.jpg')">
                         <img src="3.jpg" alt="Image 3">
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('4.jpg')">
                         <img src="4.jpg" alt="Image 4">
                     </div>
                 </div>
                 <div class="gallery-row">
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('5.jpg')">
                         <img src="5.jpg" alt="Image 5">
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('6.jpg')">
                         <img src="6.jpg" alt="Image 6">
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('7.jpg')">
                         <img src="7.jpg" alt="Image 7">
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('8.jpg')">
                         <img src="8.jpg" alt="Image 8">
                     </div>
                     <!-- Duplicating items for continuous scroll -->
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('5.jpg')">
                         <img src="5.jpg" alt="Image 5">
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('6.jpg')">
                         <img src="6.jpg" alt="Image 6">
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('7.jpg')">
                         <img src="7.jpg" alt="Image 7">
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openModal('8.jpg')">
                         <img src="8.jpg" alt="Image 8">
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modal-image">
+    </div>
 
 
         <footer class="relative p-4 bg-black md:p-8 lg:p-10 bg-transparent backdrop-blur-lg">
@@ -1186,6 +1227,18 @@
 
         // Initial setup
         updateCarousel();
+
+        function openModal(src) {
+            var modal = document.getElementById("myModal");
+            var modalImg = document.getElementById("modal-image");
+            modal.style.display = "block";
+            modalImg.src = src;
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
     </script>
 
 
