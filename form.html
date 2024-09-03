@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="favicon.png" type="image/png">
     <title>Registration Form</title>
-    <!-- <link rel="stylesheet" href="main.css"> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -128,6 +127,7 @@
                 max-width: 10%;
             }
         }
+
     </style>
 </head>
 
@@ -324,53 +324,51 @@
         </div>
     </section>
 
-    <footer class="p-4 bg-black md:p-8 lg:p-10">
-        <div class="mx-auto max-w-screen-xl text-center">
-            <div class="">
-                <img src="logo.png" alt="Description of the image" class="responsive-foot">
+    <footer class="relative p-4 bg-black md:p-8 lg:p-10">
+            <div class="mx-auto max-w-screen-xl text-center">
+                <div class="">
+                    <img src="logo.png" alt="Description of the image" class="responsive-foot">
+                </div>
+                <p
+                    class="my-6 text-white mt-6 mb-4 text-2xl font-bold tracking-tight leading-none md:text-4xl lg:text-2xl text-center">
+                    Contact Us</p>
+
+                <hr class="w-48 border-t-2 border-yellow-400 mx-auto my-4">
+
+                <div class="flex flex-col lg:flex-row justify-center items-center space-y-4 lg:space-y-0 lg:space-x-6">
+                    <!-- Contact 1 -->
+                    <div class="text-white text-l font-bold tracking-tight leading-none md:text-l lg:text-l text-center">
+                        <p>Fr. Aby Vadakumthala</p>
+                        <p class="mt-2"><a href="tel:+919495643763" class="text-yellow-400 hover:underline">9495643763</a></p>
+                    </div>
+
+                    <!-- Contact 2 -->
+                    <div class="text-white text-l font-bold tracking-tight leading-none md:text-l lg:text-l text-center">
+                        <p>Tom Mathew</p>
+                        <p class="mt-2"><a href="tel:+918138009028" class="text-yellow-400 hover:underline">8138009028</a></p>
+                    </div>
+
+                    <!-- Contact 3 -->
+                    <div class="text-white text-l font-bold tracking-tight leading-none md:text-l lg:text-l text-center">
+                        <p>Abin Mathew</p>
+                        <p class="mt-2"><a href="tel:+918848185966" class="text-yellow-400 hover:underline">8848185966</a></p>
+                    </div>
+
+                    <!-- Contact 4 -->
+                    <div class="text-white text-l font-bold tracking-tight leading-none md:text-l lg:text-l text-center">
+                        <p>Bennit Antony</p>
+                        <p class="mt-2"><a href="tel:+919526787543" class="text-yellow-400 hover:underline">9526787543</a></p>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <img src="jy.png" alt="Description of the image" class="responsive-jy">
+                </div>
+                <div class="mt-2">
+                    <span class="text-sm text-white sm:text-center text-white">Copyright © Changanacherry Campus
+                        Ministry - All Rights Reserved.</span>
+                </div>
             </div>
-            <p class="my-6 text-white mt-6 mb-4 text-3xl font-regular tracking-tight leading-none md:text-4xl lg:text-2xl text-center">Contact Us</p>
-
-<hr class="w-48 border-t-2 border-yellow-400 mx-auto my-4">
-
-<div class="flex flex-col lg:flex-row justify-center items-center space-y-4 lg:space-y-0 lg:space-x-6">
-    <!-- Contact 1 -->
-    <div class="text-white text-lg lg:text-base text-center">
-        <p>Fr. Aby Vadakumthala</p>
-        <p><a href="tel:+919495643763" class="text-yellow-400 hover:underline">9495643763</a></p>
-    </div>
-
-    <!-- Contact 2 -->
-    <div class="text-white text-lg lg:text-base text-center">
-        <p>Tom Mathew</p>
-        <p><a href="tel:+918138009028" class="text-yellow-400 hover:underline">8138009028</a></p>
-    </div>
-
-    <!-- Contact 3 -->
-    <div class="text-white text-lg lg:text-base text-center">
-        <p>Abin Mathew</p>
-        <p><a href="tel:+918848185966" class="text-yellow-400 hover:underline">8848185966</a></p>
-    </div>
-
-    <!-- Contact 4 -->
-    <div class="text-white text-lg lg:text-base text-center">
-        <p>Bennit Antony</p>
-        <p><a href="tel:+919526787543" class="text-yellow-400 hover:underline">9526787543</a></p>
-    </div>
-</div>
-
-
-
-
-<div class="mt-8">
-    <img src="jy.png" alt="Description of the image" class="responsive-jy">
-</div>
-<div class="mt-2">
-            <span class="text-sm text-white sm:text-center text-white">Copyright © Changanacherry Campus
-                Ministry - All Rights Reserved.</span>
-        </div>
-        </div>
-    </footer>
+        </footer>
 
     <!-- Main modal -->
     <div id="successModal" tabindex="-1" aria-hidden="true"
