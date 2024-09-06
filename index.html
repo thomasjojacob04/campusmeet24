@@ -813,13 +813,6 @@
             text-decoration: none;
             cursor: pointer;
         }
-
-        /* map */
-
-        #map {
-            height: 400px;
-            width: 100%;
-        }
     </style>
 </head>
 
@@ -973,7 +966,7 @@
             Stay tuned for exciting Events</h1>
 
         <div data-aos="zoom-in-up" class="relative mt-4 centered-container">
-            <img src="Blue Veil.jpg" alt="Description of the image" class="responsive-theme">
+            <img src="Covenant.jpg" alt="Description of the image" class="responsive-theme">
         </div>
 
         <h3 data-aos="zoom-in"
@@ -995,6 +988,9 @@
                     </div>
                     <div class="carousel-item">
                         <img src="U2.jpg" alt="Slide 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="Blue Veil.jpg" alt="Slide 3">
                     </div>
                 </div>
                 <button class="carousel-button carousel-button-prev">❮</button>
@@ -1069,8 +1065,6 @@
                 </div>
             </div>
         </div>
-
-        <div id="map"></div>
 
         <!-- The Modal -->
         <div id="myModal" class="modal">
@@ -1248,101 +1242,8 @@
             var modal = document.getElementById("myModal");
             modal.style.display = "none";
         }
-
-        // map
-
-        function initMap() {
-            const mapOptions = {
-                center: { lat: 9.462270513625896, lng: 76.547914026744 },
-                zoom: 14, // Adjusted zoom level for better view of the area
-                styles: [
-                    { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
-                    { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
-                    { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
-                    {
-                        featureType: "administrative.locality",
-                        elementType: "labels.text.fill",
-                        stylers: [{ color: "#d59563" }],
-                    },
-                    {
-                        featureType: "poi",
-                        elementType: "labels.text.fill",
-                        stylers: [{ color: "#d59563" }],
-                    },
-                    {
-                        featureType: "poi.park",
-                        elementType: "geometry",
-                        stylers: [{ color: "#263c3f" }],
-                    },
-                    {
-                        featureType: "poi.park",
-                        elementType: "labels.text.fill",
-                        stylers: [{ color: "#6b9a76" }],
-                    },
-                    {
-                        featureType: "road",
-                        elementType: "geometry",
-                        stylers: [{ color: "#38414e" }],
-                    },
-                    {
-                        featureType: "road",
-                        elementType: "geometry.stroke",
-                        stylers: [{ color: "#212a37" }],
-                    },
-                    {
-                        featureType: "road",
-                        elementType: "labels.text.fill",
-                        stylers: [{ color: "#9ca5b3" }],
-                    },
-                    {
-                        featureType: "road.highway",
-                        elementType: "geometry",
-                        stylers: [{ color: "#746855" }],
-                    },
-                    {
-                        featureType: "road.highway",
-                        elementType: "geometry.stroke",
-                        stylers: [{ color: "#1f2835" }],
-                    },
-                    {
-                        featureType: "road.highway",
-                        elementType: "labels.text.fill",
-                        stylers: [{ color: "#f3d19c" }],
-                    },
-                    {
-                        featureType: "transit",
-                        elementType: "geometry",
-                        stylers: [{ color: "#2f3948" }],
-                    },
-                    {
-                        featureType: "transit.station",
-                        elementType: "labels.text.fill",
-                        stylers: [{ color: "#d59563" }],
-                    },
-                    {
-                        featureType: "water",
-                        elementType: "geometry",
-                        stylers: [{ color: "#17263c" }],
-                    },
-                    {
-                        featureType: "water",
-                        elementType: "labels.text.fill",
-                        stylers: [{ color: "#515c6d" }],
-                    },
-                    {
-                        featureType: "water",
-                        elementType: "labels.text.stroke",
-                        stylers: [{ color: "#17263c" }],
-                    },
-                ],
-            };
-
-            const map = new google.maps.Map(document.getElementById("map"), mapOptions);
-        }
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVrw0sbUlj4kB9RTP52rRHlm7J1G04LKU&callback=initMap"
-        async defer></script>
 
 </body>
 
