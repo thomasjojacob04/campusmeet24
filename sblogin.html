@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Coordinators Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="bg-black dark:bg-black-900 min-h-screen flex items-center justify-center">
+        <div class="w-full max-w-2xl px-6 py-8 mx-auto space-y-6">
+                <h2 class="mt-0 text-center text-4xl font-bold text-yellow-400">
+                    COORDINATOR LOGIN
+                </h2>
+                <p class="mt-0 text-center text-sm text-white">
+                    Enter your credentials to access the dashboard
+                </p>
+            <form class="space-y-4 md:space-y-6" id="loginForm">
+                <div>
+                    <label for="email" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Your
+                        email</label>
+                    <input id="email" name="email" type="email" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                        placeholder="Email address">
+                </div>
+                <div>
+                    <label for="password"
+                        class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Password</label>
+                    <input id="password" name="password" type="password" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                        placeholder="Password">
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="mt-4 w-full text-black bg-yellow-600 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-800 font-bold rounded-lg text-lg px-5 py-2.5 text-center dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-800">
+                        Sign in
+                    </button>
+                </div>
+            </form>
+            <p id="errorMessage" class="mt-2 text-center text-sm text-red-400"></p>
+        </div>
+    </section>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            // Add your Firebase configuration here
+            apiKey: "AIzaSyDZtw8L1uKsCxpJjPb9zjY9y9v_bTXDUzw",
+            authDomain: "campus-meet-24.firebaseapp.com",
+            databaseURL: "https://campus-meet-24-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "campus-meet-24",
+            storageBucket: "campus-meet-24.appspot.com",
+            messagingSenderId: "399108215283",
+            appId: "1:399108215283:web:87a72c96fa6009d52ac286",
+            measurementId: "G-WTP3107W6Y",
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const form = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+
+        console.log('Firebase initialized');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            console.log('Login form submitted');
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            console.log('Checking if user is allowed:', email);
+
+            try {
+                // First, check if the user is in the allowedUsers collection
+                const userDoc = await db.collection('sb').doc(email).get();
+
+                if (!userDoc.exists) {
+                    console.log('User is not in allowed list');
+                    errorMessage.textContent = 'Incorrect credentials. Please try again.';
+                    return;
+                }
+
+                console.log('User is in allowed list, attempting to sign in');
+
+                // If the user is allowed, attempt to sign in
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                console.log('Authentication successful for:', email);
+
+                // User is allowed and authenticated, proceed with login
+                errorMessage.textContent = '';
+                window.location.href = 'sb.html';
+            } catch (error) {
+                console.error("Authentication error:", error);
+
+                // Check if the error is due to wrong password
+                if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+                    errorMessage.textContent = 'Incorrect credentials. Please try again.';
+                } else {
+                    errorMessage.textContent = 'Incorrect credentials. Please try again.';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
