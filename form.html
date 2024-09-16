@@ -207,11 +207,14 @@
                         <option value="anss-homeo-medical-college">ANSS Homeo Medical College, Kurichy</option>
                         <option value="assumption-college">Assumption College, Changanacherry</option>
                         <option value="believers-college">Believers College, Thiruvalla</option>
-                        <option value="bishop-abraham-memorial-college">Bishop Abraham Memorial College, Thurithikad</option>
+                        <option value="bishop-abraham-memorial-college">Bishop Abraham Memorial College, Thurithikad
+                        </option>
                         <option value="biswas-college">Biswas College of Professional Studies, Thengana</option>
                         <option value="brilliant-college">Brilliant College, Changanacherry</option>
-                        <option value="central-engineering-institute-malapally">Central Engineering Institute, Malapally</option>
-                        <option value="central-university-kerala">Central University of Kerala, Thiruvalla Campus (Legal Studies)</option>
+                        <option value="central-engineering-institute-malapally">Central Engineering Institute, Malapally
+                        </option>
+                        <option value="central-university-kerala">Central University of Kerala, Thiruvalla Campus (Legal
+                            Studies)</option>
                         <option value="christian-college">Christian College, Chegganur</option>
                         <option value="college-of-engineering-alapuzha">College of Engineering, Alapuzha</option>
                         <option value="college-of-engineering-kaloopara">College of Engineering, Kaloopara</option>
@@ -238,13 +241,19 @@
                         <option value="sert-college">SERT College, Chegganur</option>
                         <option value="shri-narayana-college">Shri Narayana College, Chengannur</option>
                         <option value="st-marys-college">St. Mary's College for Women, Thiruvalla</option>
-                        <option value="st-theresa-teachers-institute">St. Theresa Teacher's Training Institute, Vazhayapally</option>
-                        <option value="st-john-baptist-college">St. John The Baptist College of Education, Nedumkunnam</option>
-                        <option value="st-joseph-communication">St. Joseph College of Communication, Changanacherry</option>
-                        <option value="st-joseph-technology">St. Joseph College of Technology and Management, Malapally</option>
-                        <option value="st-thomas-engineering">St. Thomas College of Engineering and Technology, Chegganur</option>
+                        <option value="st-theresa-teachers-institute">St. Theresa Teacher's Training Institute,
+                            Vazhayapally</option>
+                        <option value="st-john-baptist-college">St. John The Baptist College of Education, Nedumkunnam
+                        </option>
+                        <option value="st-joseph-communication">St. Joseph College of Communication, Changanacherry
+                        </option>
+                        <option value="st-joseph-technology">St. Joseph College of Technology and Management, Malapally
+                        </option>
+                        <option value="st-thomas-engineering">St. Thomas College of Engineering and Technology,
+                            Chegganur</option>
                         <option value="st-thomas-nursing">St. Thomas Nursing College, Chethipuzha</option>
-                        <option value="st-thomas-teacher-training">St. Thomas Teacher Training Institute, Thiruvulla</option>
+                        <option value="st-thomas-teacher-training">St. Thomas Teacher Training Institute, Thiruvulla
+                        </option>
                         <option value="titus-2-teachers-college">Titus 2 Teacher's College, Thiruvalla</option>
                         <option value="ucte-paippad">UCTE, Paippad</option>
                         <option value="other">Other</option>
@@ -521,6 +530,7 @@
                     course: form.course?.value || "",
                     year: form.querySelector('input[name="year"]:checked')?.value || "",
                     zone: selectedZoneRadio ? (selectedZoneRadio.value === "Other Zone" ? zoneDropdown.value : selectedZoneRadio.value) : "",
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp() // Add this line
                 };
 
                 // Validate that all required fields are filled
@@ -563,7 +573,7 @@
         console.log("Initial state:");
         console.log("Other zone input visibility:", !otherZoneInput.classList.contains("hidden"));
         console.log("Zone dropdown required:", zoneDropdown.required);
-   
+
         document.getElementById('continueButton').addEventListener('click', function () {
             // Close the modal
             successModal.classList.add('hidden');
