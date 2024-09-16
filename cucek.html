@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>CUCEK Registrations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black min-h-screen">
+    <nav class="bg-yellow-400 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div class="flex space-x-7">
+                    <div>
+                        <a href="" class="flex items-center py-4 px-2">
+                            <span class="font-semibold text-black text-lg">CUCEK Dashboard</span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6 text-white">CUCEK Registrations</h1>
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+            <table class="min-w-full table-auto">
+                <thead class="bg-yellow-400">
+                    <tr>
+                        <th class="px-4 py-2 text-left">S.No</th>
+                        <th class="px-4 py-2 text-left">Name</th>
+                        <th class="px-4 py-2 text-left">Gender</th>
+                        <th class="px-4 py-2 text-left">Contact</th>
+                        <th class="px-4 py-2 text-left">Email</th>
+                        <th class="px-4 py-2 text-left">Course</th>
+                        <th class="px-4 py-2 text-left">Year</th>
+                        <th class="px-4 py-2 text-left">Zone</th>
+                        <th class="px-4 py-2 text-left">Confirmation</th>
+                        <th class="px-4 py-2 text-left">Mark Payment</th>
+                        <th class="px-4 py-2 text-left">Amount Paid</th>
+                        <th class="px-4 py-2 text-left">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="registrationData">
+                    <!-- Data will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+    <script>
+        // Firebase configuration (you'll need to fill this in with your actual config)
+        const firebaseConfig = {
+            // Your Firebase configuration here
+            apiKey: "AIzaSyDZtw8L1uKsCxpJjPb9zjY9y9v_bTXDUzw",
+            authDomain: "campus-meet-24.firebaseapp.com",
+            databaseURL: "https://campus-meet-24-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "campus-meet-24",
+            storageBucket: "campus-meet-24.appspot.com",
+            messagingSenderId: "399108215283",
+            appId: "1:399108215283:web:87a72c96fa6009d52ac286",
+            measurementId: "G-WTP3107W6Y"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
+        // Function to fetch and display data
+        function fetchAndDisplayData() {
+            const tableBody = document.getElementById('registrationData');
+            const collegeName = "cucek";
+
+            db.collection("registrations")
+              .where("college", "==", collegeName)
+              .orderBy("timestamp", "asc") // Add this line to sort by timestamp in ascending order
+              .get()
+              .then((querySnapshot) => {
+                tableBody.innerHTML = ''; // Clear existing data
+                let serialNumber = 1; // Initialize serial number
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const row = `
+                        <tr class="border-b hover:bg-gray-50" id="row-${doc.id}">
+                            <td class="px-4 py-2">${serialNumber}</td>
+                            <td class="px-4 py-2">${data.name}</td>
+                            <td class="px-4 py-2">${data.gender}</td>
+                            <td class="px-4 py-2">${data.contactNumber}</td>
+                            <td class="px-4 py-2">${data.email}</td>
+                            <td class="px-4 py-2">${data.course}</td>
+                            <td class="px-4 py-2">${data.year}</td>
+                            <td class="px-4 py-2">${data.zone}</td>
+                            <td class="px-4 py-2">
+                                <select class="border rounded px-2 py-1" id="confirmation-${doc.id}">
+                                    <option value="">Select</option>
+                                    <option value="Yes" ${data.confirmation === 'Yes' ? 'selected' : ''}>Yes</option>
+                                    <option value="No" ${data.confirmation === 'No' ? 'selected' : ''}>No</option>
+                                </select>
+                            </td>
+                            <td class="px-4 py-2">
+                                <select class="border rounded px-2 py-1" id="paymentStatus-${doc.id}">
+                                    <option value="">Select</option>
+                                    <option value="Paid" ${data.paymentStatus === 'Paid' ? 'selected' : ''}>Paid</option>
+                                    <option value="Unpaid" ${data.paymentStatus === 'Unpaid' ? 'selected' : ''}>Unpaid</option>
+                                </select>
+                            </td>
+                            <td class="px-4 py-2">
+                                <input type="number" class="border rounded px-2 py-1" id="amountPaid-${doc.id}" value="${data.amountPaid || ''}" placeholder="Amount">
+                            </td>
+                            <td class="px-4 py-2">
+                                <button onclick="updateEntry('${doc.id}')" class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
+                                    Update
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                    serialNumber++; // Increment serial number for next row
+                });
+            }).catch((error) => {
+                console.error("Error fetching data: ", error);
+            });
+        }
+
+        // Function to update an entry in Firestore
+        function updateEntry(docId) {
+            const confirmation = document.getElementById(`confirmation-${docId}`).value;
+            const paymentStatus = document.getElementById(`paymentStatus-${docId}`).value;
+            const amountPaid = document.getElementById(`amountPaid-${docId}`).value;
+
+            db.collection("registrations").doc(docId).update({
+                confirmation: confirmation,
+                paymentStatus: paymentStatus,
+                amountPaid: amountPaid
+            }).then(() => {
+                console.log("Document successfully updated!");
+                alert("Entry updated successfully!");
+            }).catch((error) => {
+                console.error("Error updating document: ", error);
+                alert("Error updating entry. Please try again.");
+            });
+        }
+
+        // Function to handle logout
+        function logout() {
+            auth.signOut().then(() => {
+                // Sign-out successful.
+                alert("You have been logged out successfully.");
+                // Redirect to login page
+                window.location.href = "/cuceklogin.html";
+            }).catch((error) => {
+                // An error happened.
+                console.error("Error signing out: ", error);
+                alert("Error logging out. Please try again.");
+            });
+        }
+
+        // Check authentication state and authorization
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, check if they're still allowed
+                db.collection("cucek").doc(user.email).get()
+                    .then((doc) => {
+                        if (doc.exists) {
+                            // User is still allowed, fetch and display data
+                            fetchAndDisplayData();
+                        } else {
+                            // User is no longer allowed, sign them out and redirect
+                            auth.signOut().then(() => {
+                                window.location.href = "/cuceklogin.html";
+                            });
+                        }
+                    });
+            } else {
+                // No user is signed in, redirect to login page
+                window.location.href = "/cuceklogin.html";
+            }
+        });
+    </script>
+</body>
+</html>
