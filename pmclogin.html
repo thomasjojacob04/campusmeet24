@@ -118,7 +118,7 @@
 
                 // User is allowed and authenticated, proceed with login
                 errorMessage.textContent = '';
-                window.location.href = 'pmc.html';
+                window.location.replace('pmc.html');
             } catch (error) {
                 console.error("Authentication error:", error);
 

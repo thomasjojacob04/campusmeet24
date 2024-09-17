@@ -118,7 +118,7 @@
 
                 // User is allowed and authenticated, proceed with login
                 errorMessage.textContent = '';
-                window.location.href = 'saintgits.html';
+                window.location.replace('saintgits.html');
             } catch (error) {
                 console.error("Authentication error:", error);
 

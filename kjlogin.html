@@ -118,7 +118,7 @@
 
                 // User is allowed and authenticated, proceed with login
                 errorMessage.textContent = '';
-                window.location.href = 'kjcmt.html';
+                window.location.replace('kjcmt.html');
             } catch (error) {
                 console.error("Authentication error:", error);
 

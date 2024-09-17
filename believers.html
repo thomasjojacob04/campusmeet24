@@ -160,9 +160,9 @@
         function logout() {
             auth.signOut().then(() => {
                 // Sign-out successful.
-                alert("You have been logged out successfully.");
+                // alert("You have been logged out successfully.");
                 // Redirect to login page
-                window.location.href = "/believerslogin.html";
+                window.location.replace('/believerslogin.html');
             }).catch((error) => {
                 // An error happened.
                 console.error("Error signing out: ", error);
