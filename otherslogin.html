@@ -118,7 +118,7 @@
 
                 // User is allowed and authenticated, proceed with login
                 errorMessage.textContent = '';
-                window.location.replace('others.html');
+                window.location.href = 'others.html';
             } catch (error) {
                 console.error("Authentication error:", error);
 
@@ -133,23 +133,31 @@
     </script>
 
     <script>
-        // Check authentication state as soon as the page loads
+        // Add this script at the end of your login page, just before the closing </body> tag
+        // Check authentication state when the page loads
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                // If user is signed in, check if they're still authorized
+                // User is signed in, check if they're authorized
                 db.collection("others").doc(user.email).get()
                     .then((doc) => {
                         if (doc.exists) {
-                            // User is still authorized, redirect to dashboard
+                            // User is authorized, redirect to dashboard
                             window.location.replace('others.html');
                         } else {
-                            // User is no longer authorized, sign them out
-                            firebase.auth().signOut();
+                            // User is not authorized, sign them out
+                            firebase.auth().signOut().then(() => {
+                                console.log("User signed out due to lack of authorization");
+                            }).catch((error) => {
+                                console.error("Error signing out:", error);
+                            });
                         }
                     })
                     .catch((error) => {
                         console.error("Error checking authorization:", error);
                     });
+            } else {
+                // No user is signed in, do nothing (stay on login page)
+                console.log("No user is signed in");
             }
         });
     </script>
