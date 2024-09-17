@@ -102,7 +102,7 @@
 
             try {
                 // First, check if the user is in the allowedUsers collection
-                const userDoc = await db.collection('pcon').doc(email).get();
+                const userDoc = await db.collection('cucek').doc(email).get();
 
                 if (!userDoc.exists) {
                     console.log('User is not in allowed list');
@@ -118,7 +118,7 @@
 
                 // User is allowed and authenticated, proceed with login
                 errorMessage.textContent = '';
-                window.location.href = 'pcon.html';
+                window.location.href = 'cucek.html';
             } catch (error) {
                 console.error("Authentication error:", error);
 
@@ -137,11 +137,11 @@
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 // If user is signed in, check if they're still authorized
-                db.collection("pcon").doc(user.email).get()
+                db.collection("cucek").doc(user.email).get()
                     .then((doc) => {
                         if (doc.exists) {
                             // User is still authorized, redirect to dashboard
-                            window.location.replace('pcon.html');
+                            window.location.replace('cucek.html');
                         } else {
                             // User is no longer authorized, sign them out
                             firebase.auth().signOut();

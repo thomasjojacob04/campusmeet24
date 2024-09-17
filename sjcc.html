@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <link rel="icon" href="favicon.png" type="image/png">
     <title>Media Village Registrations</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-black min-h-screen">
     <nav class="bg-yellow-400 shadow-lg">
         <div class="max-w-7xl mx-auto px-4">
@@ -19,7 +22,8 @@
                     </div>
                 </div>
                 <div>
-                    <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                    <button onclick="logout()"
+                        class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                         Logout
                     </button>
                 </div>
@@ -83,15 +87,15 @@
             const collegeName = "st-joseph-communication";
 
             db.collection("registrations")
-              .where("college", "==", collegeName)
-              .orderBy("timestamp", "asc") // Add this line to sort by timestamp in ascending order
-              .get()
-              .then((querySnapshot) => {
-                tableBody.innerHTML = ''; // Clear existing data
-                let serialNumber = 1; // Initialize serial number
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const row = `
+                .where("college", "==", collegeName)
+                .orderBy("timestamp", "asc") // Add this line to sort by timestamp in ascending order
+                .get()
+                .then((querySnapshot) => {
+                    tableBody.innerHTML = ''; // Clear existing data
+                    let serialNumber = 1; // Initialize serial number
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        const row = `
                         <tr class="border-b hover:bg-gray-50" id="row-${doc.id}">
                             <td class="px-4 py-2">${serialNumber}</td>
                             <td class="px-4 py-2">${data.name}</td>
@@ -125,12 +129,12 @@
                             </td>
                         </tr>
                     `;
-                    tableBody.innerHTML += row;
-                    serialNumber++; // Increment serial number for next row
+                        tableBody.innerHTML += row;
+                        serialNumber++; // Increment serial number for next row
+                    });
+                }).catch((error) => {
+                    console.error("Error fetching data: ", error);
                 });
-            }).catch((error) => {
-                console.error("Error fetching data: ", error);
-            });
         }
 
         // Function to update an entry in Firestore
@@ -166,27 +170,42 @@
             });
         }
 
-        // Check authentication state and authorization
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                // User is signed in, check if they're still allowed
-                db.collection("sjcc").doc(user.email).get()
-                    .then((doc) => {
-                        if (doc.exists) {
-                            // User is still allowed, fetch and display data
-                            fetchAndDisplayData();
-                        } else {
-                            // User is no longer allowed, sign them out and redirect
-                            auth.signOut().then(() => {
-                                window.location.href = "/sjcclogin.html";
+        // Replace the existing auth.onAuthStateChanged function with this:
+        function checkAuth() {
+            return new Promise((resolve, reject) => {
+                auth.onAuthStateChanged((user) => {
+                    if (user) {
+                        db.collection("sjcc").doc(user.email).get()
+                            .then((doc) => {
+                                if (doc.exists) {
+                                    resolve(user);
+                                } else {
+                                    auth.signOut().then(() => {
+                                        reject(new Error("User is not authorized"));
+                                    });
+                                }
+                            })
+                            .catch((error) => {
+                                reject(error);
                             });
-                        }
-                    });
-            } else {
-                // No user is signed in, redirect to login page
-                window.location.href = "/sjcclogin.html";
+                    } else {
+                        reject(new Error("No user is signed in"));
+                    }
+                });
+            });
+        }
+
+        // Use an async IIFE to check auth state before proceeding
+        (async () => {
+            try {
+                await checkAuth();
+                fetchAndDisplayData();
+            } catch (error) {
+                console.error("Authentication error:", error);
+                window.location.replace('/sjcclogin.html');
             }
-        });
+        })();
     </script>
 </body>
+
 </html>

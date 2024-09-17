@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <link rel="icon" href="favicon.png" type="image/png">
-    <title>SaintGits College Registrations</title>
+    <title>CUCEK Registrations</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -17,7 +17,7 @@
                 <div class="flex space-x-7">
                     <div>
                         <a href="" class="flex items-center py-4 px-2">
-                            <span class="font-semibold text-black text-lg">SaintGits College Dashboard</span>
+                            <span class="font-semibold text-black text-lg">CUCEK Dashboard</span>
                         </a>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
     </nav>
 
     <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-6 text-white">SaintGits College Registrations</h1>
+        <h1 class="text-3xl font-bold mb-6 text-white">CUCEK Registrations</h1>
         <div class="overflow-x-auto bg-white shadow-md rounded-lg">
             <table class="min-w-full table-auto">
                 <thead class="bg-yellow-400">
@@ -84,7 +84,7 @@
         // Function to fetch and display data
         function fetchAndDisplayData() {
             const tableBody = document.getElementById('registrationData');
-            const collegeName = "saintgits-college";
+            const collegeName = "cucek";
 
             db.collection("registrations")
                 .where("college", "==", collegeName)
@@ -162,7 +162,7 @@
                 // Sign-out successful.
                 alert("You have been logged out successfully.");
                 // Redirect to login page
-                window.location.href = "/saintgitslogin.html";
+                window.location.href = "/cuceklogin.html";
             }).catch((error) => {
                 // An error happened.
                 console.error("Error signing out: ", error);
@@ -175,7 +175,7 @@
             return new Promise((resolve, reject) => {
                 auth.onAuthStateChanged((user) => {
                     if (user) {
-                        db.collection("saintgits").doc(user.email).get()
+                        db.collection("cucek").doc(user.email).get()
                             .then((doc) => {
                                 if (doc.exists) {
                                     resolve(user);
@@ -202,7 +202,7 @@
                 fetchAndDisplayData();
             } catch (error) {
                 console.error("Authentication error:", error);
-                window.location.replace('/saintgitslogin.html');
+                window.location.replace('/cuceklogin.html');
             }
         })();
     </script>

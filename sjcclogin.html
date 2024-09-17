@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <link rel="icon" href="favicon.png" type="image/png">
     <title>Coordinators Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -29,12 +30,12 @@
 <body>
     <section class="bg-black dark:bg-black-900 min-h-screen flex items-center justify-center">
         <div class="w-full max-w-2xl px-6 py-8 mx-auto space-y-6">
-                <h2 class="mt-0 text-center text-4xl font-bold text-yellow-400">
-                    COORDINATOR LOGIN
-                </h2>
-                <p class="mt-0 text-center text-sm text-white">
-                    Enter your credentials to access the dashboard
-                </p>
+            <h2 class="mt-0 text-center text-4xl font-bold text-yellow-400">
+                COORDINATOR LOGIN
+            </h2>
+            <p class="mt-0 text-center text-sm text-white">
+                Enter your credentials to access the dashboard
+            </p>
             <form class="space-y-4 md:space-y-6" id="loginForm">
                 <div>
                     <label for="email" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Your
@@ -127,6 +128,28 @@
                 } else {
                     errorMessage.textContent = 'Incorrect credentials. Please try again.';
                 }
+            }
+        });
+    </script>
+
+    <script>
+        // Check authentication state as soon as the page loads
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                // If user is signed in, check if they're still authorized
+                db.collection("sjcc").doc(user.email).get()
+                    .then((doc) => {
+                        if (doc.exists) {
+                            // User is still authorized, redirect to dashboard
+                            window.location.replace('sjcc.html');
+                        } else {
+                            // User is no longer authorized, sign them out
+                            firebase.auth().signOut();
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error checking authorization:", error);
+                    });
             }
         });
     </script>

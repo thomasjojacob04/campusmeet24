@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <link rel="icon" href="favicon.png" type="image/png">
-    <title>SaintGits College Registrations</title>
+    <title>Other Colleges Registrations</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -17,7 +17,7 @@
                 <div class="flex space-x-7">
                     <div>
                         <a href="" class="flex items-center py-4 px-2">
-                            <span class="font-semibold text-black text-lg">SaintGits College Dashboard</span>
+                            <span class="font-semibold text-black text-lg">Other Colleges Dashboard</span>
                         </a>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
     </nav>
 
     <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-6 text-white">SaintGits College Registrations</h1>
+        <h1 class="text-3xl font-bold mb-6 text-white">Other Colleges Registrations</h1>
         <div class="overflow-x-auto bg-white shadow-md rounded-lg">
             <table class="min-w-full table-auto">
                 <thead class="bg-yellow-400">
@@ -42,6 +42,7 @@
                         <th class="px-4 py-2 text-left">Gender</th>
                         <th class="px-4 py-2 text-left">Contact</th>
                         <th class="px-4 py-2 text-left">Email</th>
+                        <th class="px-4 py-2 text-left">College</th>
                         <th class="px-4 py-2 text-left">Course</th>
                         <th class="px-4 py-2 text-left">Year</th>
                         <th class="px-4 py-2 text-left">Zone</th>
@@ -66,14 +67,6 @@
         // Firebase configuration (you'll need to fill this in with your actual config)
         const firebaseConfig = {
             // Your Firebase configuration here
-            apiKey: "AIzaSyDZtw8L1uKsCxpJjPb9zjY9y9v_bTXDUzw",
-            authDomain: "campus-meet-24.firebaseapp.com",
-            databaseURL: "https://campus-meet-24-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "campus-meet-24",
-            storageBucket: "campus-meet-24.appspot.com",
-            messagingSenderId: "399108215283",
-            appId: "1:399108215283:web:87a72c96fa6009d52ac286",
-            measurementId: "G-WTP3107W6Y"
         };
 
         // Initialize Firebase
@@ -81,16 +74,57 @@
         const db = firebase.firestore();
         const auth = firebase.auth();
 
+        // List of colleges to include
+        const includedColleges = [
+            "anss-homeo-medical-college",
+            "bishop-abraham-memorial-college",
+            "biswas-college",
+            "brilliant-college",
+            "central-engineering-institute-malapally",
+            "central-university-kerala",
+            "christian-college",
+            "college-of-engineering-alapuzha",
+            "college-of-engineering-kaloopara",
+            "deepthy-college",
+            "fathima-college",
+            "fr-porukara-college",
+            "govt-iti-chengannur",
+            "govt-womens-iti",
+            "macfast-college",
+            "maharajas-college",
+            "mar-thoma-college",
+            "mount-zion-institute",
+            "nss-college",
+            "nss-training-college",
+            "providence-college",
+            "sa-college",
+            "sert-college",
+            "shri-narayana-college",
+            "st-marys-college",
+            "st-theresa-teachers-institute",
+            "st-john-baptist-college",
+            "st-joseph-technology",
+            "st-thomas-engineering",
+            "st-thomas-nursing",
+            "st-thomas-teacher-training",
+            "titus-2-teachers-college",
+            "ucte-paippad",
+            "other"
+            // Add more colleges as needed
+        ];
+
         // Function to fetch and display data
         function fetchAndDisplayData() {
             const tableBody = document.getElementById('registrationData');
-            const collegeName = "saintgits-college";
 
-            db.collection("registrations")
-                .where("college", "==", collegeName)
+            // Create a query to fetch registrations for included colleges
+            const query = db.collection("registrations")
+                .where("college", "in", includedColleges);
+
+
+            query
                 .orderBy("timestamp", "asc") // Add this line to sort by timestamp in ascending order
-                .get()
-                .then((querySnapshot) => {
+                .get().then((querySnapshot) => {
                     tableBody.innerHTML = ''; // Clear existing data
                     let serialNumber = 1; // Initialize serial number
                     querySnapshot.forEach((doc) => {
@@ -102,6 +136,7 @@
                             <td class="px-4 py-2">${data.gender}</td>
                             <td class="px-4 py-2">${data.contactNumber}</td>
                             <td class="px-4 py-2">${data.email}</td>
+                            <td class="px-4 py-2">${data.college}</td>
                             <td class="px-4 py-2">${data.course}</td>
                             <td class="px-4 py-2">${data.year}</td>
                             <td class="px-4 py-2">${data.zone}</td>
@@ -162,7 +197,7 @@
                 // Sign-out successful.
                 alert("You have been logged out successfully.");
                 // Redirect to login page
-                window.location.href = "/saintgitslogin.html";
+                window.location.href = "/otherslogin.html";
             }).catch((error) => {
                 // An error happened.
                 console.error("Error signing out: ", error);
@@ -175,7 +210,7 @@
             return new Promise((resolve, reject) => {
                 auth.onAuthStateChanged((user) => {
                     if (user) {
-                        db.collection("saintgits").doc(user.email).get()
+                        db.collection("others").doc(user.email).get()
                             .then((doc) => {
                                 if (doc.exists) {
                                     resolve(user);
@@ -202,7 +237,7 @@
                 fetchAndDisplayData();
             } catch (error) {
                 console.error("Authentication error:", error);
-                window.location.replace('/saintgitslogin.html');
+                window.location.replace('/otherslogin.html');
             }
         })();
     </script>
