@@ -118,7 +118,7 @@
 
                 // User is allowed and authenticated, proceed with login
                 errorMessage.textContent = '';
-                window.location.href = 'assump.html';
+                window.location.replace('assump.html');
             } catch (error) {
                 console.error("Authentication error:", error);
 
