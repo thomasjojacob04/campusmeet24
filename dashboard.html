@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <link rel="icon" href="favicon.png" type="image/png">
     <title>Admin Dashboard - Registrations</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -212,22 +213,37 @@
         const contentElement = document.getElementById('content');
         const logoutBtn = document.getElementById('logoutBtn');
 
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                // User is signed in, show the dashboard content
-                loadingElement.classList.add('hidden');
-                contentElement.classList.remove('hidden');
-                fetchAndDisplayData();
-            } else {
-                // No user is signed in, redirect to login page
-                window.location.href = 'login.html';
-            }
-        });
+        // Function to check authentication
+        function checkAuth() {
+            return new Promise((resolve) => {
+                const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+                    unsubscribe();
+                    resolve(user);
+                });
+            });
+        }
 
+        // Use an async IIFE to check auth state before proceeding
+        (async () => {
+            loadingElement.classList.remove('hidden');
+            contentElement.classList.add('hidden');
+
+            const user = await checkAuth();
+            if (!user) {
+                window.location.replace('login.html');
+                return;
+            }
+
+            loadingElement.classList.add('hidden');
+            contentElement.classList.remove('hidden');
+            fetchAndDisplayData();
+        })();
+
+        // Update logout function
         logoutBtn.addEventListener('click', function () {
             firebase.auth().signOut().then(() => {
                 // Sign-out successful, redirect to login page
-                window.location.href = 'login.html';
+                window.location.replace('login.html');
             }).catch((error) => {
                 // An error happened
                 console.error('Logout Error:', error);
@@ -241,16 +257,16 @@
             const confirmedParticipantsElement = document.getElementById('confirmedParticipants');
 
             db.collection("registrations")
-            .orderBy("timestamp", "asc") // Add this line to sort by timestamp in ascending order
-            .get()
-            .then((querySnapshot) => {
-                tableBody.innerHTML = ''; // Clear existing data
-                let serialNumber = 1; // Initialize serial number
-                let confirmedCount = 0; // Initialize confirmed participants count
+                .orderBy("timestamp", "asc") // Add this line to sort by timestamp in ascending order
+                .get()
+                .then((querySnapshot) => {
+                    tableBody.innerHTML = ''; // Clear existing data
+                    let serialNumber = 1; // Initialize serial number
+                    let confirmedCount = 0; // Initialize confirmed participants count
 
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const row = `
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        const row = `
             <tr class="border-b hover:bg-gray-50">
                 <td class="px-4 py-2">${serialNumber}</td>
                 <td class="px-4 py-2">${data.name}</td>
@@ -271,22 +287,22 @@
                 </td>
             </tr>
         `;
-                    tableBody.innerHTML += row;
+                        tableBody.innerHTML += row;
 
-                    // Count confirmed participants
-                    if (data.confirmation === 'Yes') {
-                        confirmedCount++;
-                    }
+                        // Count confirmed participants
+                        if (data.confirmation === 'Yes') {
+                            confirmedCount++;
+                        }
 
-                    serialNumber++; // Increment serial number for next row
+                        serialNumber++; // Increment serial number for next row
+                    });
+
+                    // Update the counters
+                    totalRegistrationsElement.textContent = serialNumber - 1; // Subtract 1 because serialNumber is incremented one extra time
+                    confirmedParticipantsElement.textContent = confirmedCount;
+                }).catch((error) => {
+                    console.error("Error fetching data: ", error);
                 });
-
-                // Update the counters
-                totalRegistrationsElement.textContent = serialNumber - 1; // Subtract 1 because serialNumber is incremented one extra time
-                confirmedParticipantsElement.textContent = confirmedCount;
-            }).catch((error) => {
-                console.error("Error fetching data: ", error);
-            });
         }
 
         // Function to open edit modal
