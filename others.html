@@ -165,9 +165,9 @@
                     <td class="px-4 py-2">${data.course || ''}</td>
                     <td class="px-4 py-2">${data.year || ''}</td>
                     <td class="px-4 py-2">${data.zone || ''}</td>
-                    <td class="px-4 py-2">${data.confirmation}</td>
-                    <td class="px-4 py-2">${data.paymentStatus}</td>
-                    <td class="px-4 py-2">${data.amountPaid}</td>
+                    <td class="px-4 py-2">${data.confirmation || ''}</td>
+                    <td class="px-4 py-2">${data.paymentStatus || ''}</td>
+                    <td class="px-4 py-2">${data.amountPaid || ''}</td>
                 </tr>
             `;
                             tableBody.innerHTML += row;
