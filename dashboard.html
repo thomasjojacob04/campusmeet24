@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <link rel="icon" href="favicon.png" type="image/png">
     <title>Admin Dashboard - Registrations</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -46,6 +45,14 @@
                 <div class="bg-red-700 text-white p-4 rounded-lg shadow-md">
                     <h2 class="text-lg font-semibold">Confirmed Participants</h2>
                     <p id="confirmedParticipants" class="text-3xl font-bold">0</p>
+                </div>
+            </div>
+
+            <!-- College Registration Bar Graph -->
+            <div class="mb-8 bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">College Registration Count</h2>
+                <div id="graph-container" class="relative h-96 overflow-y-auto pr-4">
+                    <!-- Bars will be dynamically inserted here -->
                 </div>
             </div>
 
@@ -255,38 +262,44 @@
             const tableBody = document.getElementById('registrationData');
             const totalRegistrationsElement = document.getElementById('totalRegistrations');
             const confirmedParticipantsElement = document.getElementById('confirmedParticipants');
+            const graphContainer = document.getElementById('graph-container');
 
             db.collection("registrations")
-                .orderBy("timestamp", "asc") // Add this line to sort by timestamp in ascending order
+                .orderBy("timestamp", "asc")
                 .get()
                 .then((querySnapshot) => {
                     tableBody.innerHTML = ''; // Clear existing data
-                    let serialNumber = 1; // Initialize serial number
-                    let confirmedCount = 0; // Initialize confirmed participants count
+                    graphContainer.innerHTML = ''; // Clear existing graph
+                    
+                    let serialNumber = 1;
+                    let confirmedCount = 0;
+                    const collegeData = {};
 
                     querySnapshot.forEach((doc) => {
                         const data = doc.data();
+                        
+                        // Populate table
                         const row = `
-            <tr class="border-b hover:bg-gray-50">
-                <td class="px-4 py-2">${serialNumber}</td>
-                <td class="px-4 py-2">${data.name}</td>
-                <td class="px-4 py-2">${data.gender}</td>
-                <td class="px-4 py-2">${data.contactNumber}</td>
-                <td class="px-4 py-2">${data.email}</td>
-                <td class="px-4 py-2">${data.address}</td>
-                <td class="px-4 py-2">${data.college}</td>
-                <td class="px-4 py-2">${data.course}</td>
-                <td class="px-4 py-2">${data.year}</td>
-                <td class="px-4 py-2">${data.zone}</td>
-                <td class="px-4 py-2">${data.confirmation || ''}</td>
-                <td class="px-4 py-2">${data.paymentStatus || ''}</td>
-                <td class="px-4 py-2">${data.amountPaid || ''}</td>
-                <td class="px-4 py-2">
-                    <button onclick="openEditModal('${doc.id}')" class="text-blue-500 hover:text-blue-700 mr-2">Edit</button>
-                    <button onclick="openDeleteModal('${doc.id}')" class="text-red-500 hover:text-red-700">Delete</button>
-                </td>
-            </tr>
-        `;
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-2">${serialNumber}</td>
+                                <td class="px-4 py-2">${data.name}</td>
+                                <td class="px-4 py-2">${data.gender}</td>
+                                <td class="px-4 py-2">${data.contactNumber}</td>
+                                <td class="px-4 py-2">${data.email}</td>
+                                <td class="px-4 py-2">${data.address}</td>
+                                <td class="px-4 py-2">${data.college}</td>
+                                <td class="px-4 py-2">${data.course}</td>
+                                <td class="px-4 py-2">${data.year}</td>
+                                <td class="px-4 py-2">${data.zone}</td>
+                                <td class="px-4 py-2">${data.confirmation || ''}</td>
+                                <td class="px-4 py-2">${data.paymentStatus || ''}</td>
+                                <td class="px-4 py-2">${data.amountPaid || ''}</td>
+                                <td class="px-4 py-2">
+                                    <button onclick="openEditModal('${doc.id}')" class="text-blue-500 hover:text-blue-700 mr-2">Edit</button>
+                                    <button onclick="openDeleteModal('${doc.id}')" class="text-red-500 hover:text-red-700">Delete</button>
+                                </td>
+                            </tr>
+                        `;
                         tableBody.innerHTML += row;
 
                         // Count confirmed participants
@@ -294,16 +307,58 @@
                             confirmedCount++;
                         }
 
-                        serialNumber++; // Increment serial number for next row
+                        // Collect college data
+                        collegeData[data.college] = (collegeData[data.college] || 0) + 1;
+
+                        serialNumber++;
                     });
 
                     // Update the counters
-                    totalRegistrationsElement.textContent = serialNumber - 1; // Subtract 1 because serialNumber is incremented one extra time
+                    totalRegistrationsElement.textContent = serialNumber - 1;
                     confirmedParticipantsElement.textContent = confirmedCount;
+
+                    // Process and display college data
+                    const sortedColleges = Object.entries(collegeData).sort((a, b) => b[1] - a[1]);
+                    const maxCount = Math.max(...sortedColleges.map(c => c[1]));
+
+                    sortedColleges.forEach(([college, count], index) => {
+                        const percentage = (count / maxCount) * 100;
+                        const barContainer = document.createElement('div');
+                        barContainer.className = 'flex items-center mb-2';
+
+                        const labelDiv = document.createElement('div');
+                        labelDiv.className = 'w-1/3 pr-4 text-right font-semibold text-sm truncate';
+                        labelDiv.textContent = college;
+
+                        const barWrapper = document.createElement('div');
+                        barWrapper.className = 'w-2/3 bg-gray-200 rounded-full h-4 relative';
+
+                        const bar = document.createElement('div');
+                        bar.className = 'bg-blue-500 rounded-full h-4 transition-all duration-1000 ease-out';
+                        bar.style.width = '0%';
+
+                        const countLabel = document.createElement('div');
+                        countLabel.className = 'absolute top-0 left-2 text-xs text-white font-bold';
+                        countLabel.textContent = count;
+
+                        barWrapper.appendChild(bar);
+                        barWrapper.appendChild(countLabel);
+                        barContainer.appendChild(labelDiv);
+                        barContainer.appendChild(barWrapper);
+                        graphContainer.appendChild(barContainer);
+
+                        // Animate the bar width
+                        setTimeout(() => {
+                            bar.style.width = `${percentage}%`;
+                        }, 50 * index);
+                    });
                 }).catch((error) => {
                     console.error("Error fetching data: ", error);
                 });
         }
+
+        // Call the function to fetch and display data
+        fetchAndDisplayData();
 
         // Function to open edit modal
         function openEditModal(docId) {

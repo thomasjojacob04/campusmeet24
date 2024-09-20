@@ -42,6 +42,7 @@
                         <th class="px-4 py-2 text-left">Gender</th>
                         <th class="px-4 py-2 text-left">Contact</th>
                         <th class="px-4 py-2 text-left">Email</th>
+                        <th class="px-4 py-2 text-left">Address</th>
                         <th class="px-4 py-2 text-left">College</th>
                         <th class="px-4 py-2 text-left">Course</th>
                         <th class="px-4 py-2 text-left">Year</th>
@@ -49,7 +50,6 @@
                         <th class="px-4 py-2 text-left">Confirmation</th>
                         <th class="px-4 py-2 text-left">Mark Payment</th>
                         <th class="px-4 py-2 text-left">Amount Paid</th>
-                        <th class="px-4 py-2 text-left">Action</th>
                     </tr>
                 </thead>
                 <tbody id="registrationData">
@@ -95,42 +95,42 @@
         function fetchAndDisplayData() {
             const tableBody = document.getElementById('registrationData');
             const includedColleges = [
-                "anss-homeo-medical-college",
-                "believers-college",
-                "bishop-abraham-memorial-college",
-                "biswas-college",
-                "brilliant-college",
-                "central-engineering-institute-malapally",
-                "central-university-kerala",
-                "christian-college",
-                "college-of-engineering-alapuzha",
-                "college-of-engineering-kaloopara",
-                "deepthy-college",
-                "fathima-college",
-                "fr-porukara-college",
-                "govt-iti-chengannur",
-                "govt-womens-iti",
-                "lourdes-matha-school-of-nursing-pacha",
-                "macfast-college",
-                "maharajas-college",
-                "mar-thoma-college",
-                "mount-zion-institute",
-                "nss-college",
-                "nss-training-college",
-                "providence-college",
-                "sa-college",
-                "sert-college",
-                "shri-narayana-college",
-                "st-marys-college",
-                "st-theresa-teachers-institute",
-                "st-john-baptist-college",
-                "st-joseph-technology",
-                "st-thomas-engineering",
-                "st-thomas-nursing",
-                "st-thomas-teacher-training",
-                "titus-2-teachers-college",
-                "ucte-paippad",
-                "other"
+                "ANSS Homeo Medical College, Kurichy",
+                "Believers College, Thiruvalla",
+                "Bishop Abraham Memorial College, Thurithikad",
+                "Biswas College of Professional Studies, Thengana",
+                "Brilliant College, Changanacherry",
+                "Central Engineering Institute, Malapally",
+                "Central University of Kerala, Thiruvalla Campus (Legal Studies)",
+                "Christian College, Chegganur",
+                "College of Engineering, Alapuzha",
+                "College of Engineering, Kaloopara",
+                "Deepthy College, Mamood",
+                "Fathima College of Management, Changanacherry",
+                "Fr. Porukara College, Champakulam",
+                "Government ITI College, Chengannur",
+                "Government Women's ITI College, Changanacherry",
+                "Lourdes Matha School of Nursing, Pacha",
+                "Macfast College, Thiruvalla",
+                "Maharajas College, Changanacherry",
+                "Mar Thoma College, Thiruvalla",
+                "Mount Zion Institute of Engineering and Management",
+                "NSS College, Changanacherry",
+                "NSS Training College, Changanacherry",
+                "Providence College of Engineering, Alapuzha",
+                "SA College, Edathua",
+                "SERT College, Chegganur",
+                "Shri Narayana College, Chengannur",
+                "St. Mary's College for Women, Thiruvalla",
+                "St. Theresa Teacher's Training Institute, Vazhayapally",
+                "St. John The Baptist College of Education, Nedumkunnam",
+                "St. Joseph College of Technology and Management, Malapally",
+                "St. Thomas College of Engineering and Technology, Chegganur",
+                "St. Thomas Nursing College, Chethipuzha",
+                "St. Thomas Teacher Training Institute, Thiruvulla",
+                "Titus 2 Teacher's College, Thiruvalla",
+                "UCTE, Paippad",
+                "Other"
             ];
 
             // Split the colleges array into chunks of 10
@@ -160,32 +160,14 @@
                     <td class="px-4 py-2">${data.gender || ''}</td>
                     <td class="px-4 py-2">${data.contactNumber || ''}</td>
                     <td class="px-4 py-2">${data.email || ''}</td>
+                    <td class="px-4 py-2">${data.address || ''}</td>
                     <td class="px-4 py-2">${data.college || ''}</td>
                     <td class="px-4 py-2">${data.course || ''}</td>
                     <td class="px-4 py-2">${data.year || ''}</td>
                     <td class="px-4 py-2">${data.zone || ''}</td>
-                    <td class="px-4 py-2">
-                        <select class="border rounded px-2 py-1" id="confirmation-${doc.id}">
-                            <option value="">Select</option>
-                            <option value="Yes" ${data.confirmation === 'Yes' ? 'selected' : ''}>Yes</option>
-                            <option value="No" ${data.confirmation === 'No' ? 'selected' : ''}>No</option>
-                        </select>
-                    </td>
-                    <td class="px-4 py-2">
-                        <select class="border rounded px-2 py-1" id="paymentStatus-${doc.id}">
-                            <option value="">Select</option>
-                            <option value="Paid" ${data.paymentStatus === 'Paid' ? 'selected' : ''}>Paid</option>
-                            <option value="Unpaid" ${data.paymentStatus === 'Unpaid' ? 'selected' : ''}>Unpaid</option>
-                        </select>
-                    </td>
-                    <td class="px-4 py-2">
-                        <input type="number" class="border rounded px-2 py-1" id="amountPaid-${doc.id}" value="${data.amountPaid || ''}" placeholder="Amount">
-                    </td>
-                    <td class="px-4 py-2">
-                        <button onclick="updateEntry('${doc.id}')" class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
-                            Update
-                        </button>
-                    </td>
+                    <td class="px-4 py-2">${data.confirmation}</td>
+                    <td class="px-4 py-2">${data.paymentStatus}</td>
+                    <td class="px-4 py-2">${data.amountPaid}</td>
                 </tr>
             `;
                             tableBody.innerHTML += row;
@@ -197,25 +179,6 @@
                     console.error("Error fetching data: ", error);
                     tableBody.innerHTML = `<tr><td colspan="13" class="px-4 py-2 text-center text-red-500">Error fetching data: ${error.message}</td></tr>`;
                 });
-        }
-
-        // Function to update an entry in Firestore
-        function updateEntry(docId) {
-            const confirmation = document.getElementById(`confirmation-${docId}`).value;
-            const paymentStatus = document.getElementById(`paymentStatus-${docId}`).value;
-            const amountPaid = document.getElementById(`amountPaid-${docId}`).value;
-
-            db.collection("registrations").doc(docId).update({
-                confirmation: confirmation,
-                paymentStatus: paymentStatus,
-                amountPaid: amountPaid
-            }).then(() => {
-                console.log("Document successfully updated!");
-                alert("Entry updated successfully!");
-            }).catch((error) => {
-                console.error("Error updating document: ", error);
-                alert("Error updating entry. Please try again.");
-            });
         }
 
         // Function to handle logout

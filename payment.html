@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Registration Payment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+
+    <style>
+        .centered-container {
+            display: flex;
+            justify-content: center;
+            /* Centers the image horizontally */
+            align-items: center;
+            /* Centers the image vertically (if needed) */
+            /* height: 10vh; */
+            /* Adjust height if needed or remove if not necessary */
+        }
+
+        .responsive-img {
+            max-width: 20%;
+            height: auto;
+            /* Ensures the image scales with its container and maintains aspect ratio */
+            display: block;
+            /* Removes bottom whitespace */
+            margin-left: auto;
+            margin-right: auto;
+            /* Centers the image horizontally */
+        }
+
+        /* Optional: Fine-tuning for smaller devices */
+        @media (max-width: 768px) {
+            .responsive-img {
+                max-width: 40%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .responsive-img {
+                max-width: 40%;
+            }
+        }
+
+        .responsive-foot {
+            max-width: 10%;
+            height: auto;
+            /* Ensures the image scales with its container and maintains aspect ratio */
+            display: block;
+            /* Removes bottom whitespace */
+            margin-left: auto;
+            margin-right: auto;
+            /* Centers the image horizontally */
+        }
+
+        /* Optional: Fine-tuning for smaller devices */
+        @media (max-width: 768px) {
+            .responsive-foot {
+                max-width: 30%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .responsive-foot {
+                max-width: 30%;
+            }
+        }
+
+        .responsive-jy {
+            max-width: 2.5%;
+            height: auto;
+            /* Ensures the image scales with its container and maintains aspect ratio */
+            display: block;
+            /* Removes bottom whitespace */
+            margin-left: auto;
+            margin-right: auto;
+            /* Centers the image horizontally */
+        }
+
+        /* Optional: Fine-tuning for smaller devices */
+        @media (max-width: 768px) {
+            .responsive-jy {
+                max-width: 6%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .responsive-jy {
+                max-width: 10%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="bg-black dark:bg-black-900 min-h-screen flex items-center justify-center">
+        <div class="w-full max-w-2xl px-6 py-8 mx-auto space-y-6">
+            <div class="mt-0 centered-container">
+                <img src="logo.png" alt="Description of the image" class="responsive-img">
+            </div>
+            <h1 class="text-3xl font-bold leading-tight tracking-tight text-yellow-400 text-center mb-8">CAMPUS MEET' 24
+                REGISTRATION PAYMENT</h1>
+
+            <div class="mb-6">
+                <h2 class="flex items-center justify-center text-2xl font-bold mb-8 text-white">UPI PAYMENT DETAILS</h2>
+                <p class="text-center text-white text-xl font-bold mb-4">Scan to pay with any UPI app</p>
+                <div class="flex justify-center mb-8">
+                    <img src="qr.jpg" alt="UPI QR Code" class="w-48 h-48" />
+                </div>
+                <p class="text-center text-white text-xl font-semibold mb-2"><strong>UPI ID:</strong>
+                    bennitantony@okhdfcbank</p>
+                <p class="text-center text-white text-xl font-semibold"><strong>UPI Phone No:</strong> +91 95267 87543
+                </p>
+            </div>
+
+            <form id="paymentForm" class="space-y-4">
+                <div>
+                    <label for="payerName"
+                        class="block mt-8 mb-4 text-lg font-medium text-gray-900 dark:text-white">Select Your
+                        Name(verify your Phone No.) <span class="text-red-500">*</span></label>
+                    <select id="payerName" name="payerName"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                        required>
+                        <option value="">Select a name</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block mt-8 mb-2 text-lg font-medium text-gray-900 dark:text-white">Payment Type <span
+                            class="text-red-500">*</span></label>
+                    <div class="flex flex-col space-y-4 mt-4 ml-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="paymentType" value="1000" style="width: 16px; height: 16px"
+                                class="mr-2 w-4 h-4 text-yellow-500 bg-white-100 border-white-300 focus:ring-yellow-500 focus:border-yellow-500 dark:bg-white-700 dark:border-gray-600 dark:focus:ring-yellow-500 dark:ring-offset-gray-800 checked:bg-yellow-500 checked:border-yellow-500"
+                                class="mr-2" required>
+                            <span class="text-base font-medium text-gray-900 dark:text-white">Full Payment
+                                (₹1000)</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="paymentType" value="750" style="width: 16px; height: 16px"
+                                class="mr-2 w-4 h-4 text-yellow-500 bg-white-100 border-white-300 focus:ring-yellow-500 focus:border-yellow-500 dark:bg-white-700 dark:border-gray-600 dark:focus:ring-yellow-500 dark:ring-offset-gray-800 checked:bg-yellow-500 checked:border-yellow-500"
+                                class="mr-2" required>
+                            <span class="text-base font-medium text-gray-900 dark:text-white">Partial Payment
+                                (₹750)</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="paymentType" value="500" style="width: 16px; height: 16px"
+                                class="mr-2 w-4 h-4 text-yellow-500 bg-white-100 border-white-300 focus:ring-yellow-500 focus:border-yellow-500 dark:bg-white-700 dark:border-gray-600 dark:focus:ring-yellow-500 dark:ring-offset-gray-800 checked:bg-yellow-500 checked:border-yellow-500"
+                                class="mr-2" required>
+                            <span class="text-base font-medium text-gray-900 dark:text-white">Advance Payment
+                                (₹500)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block mt-8 mb-4 text-lg font-medium text-gray-900 dark:text-white">Payment
+                        Screenshot <span class="text-red-500">*</span></label>
+                    <input type="file" id="paymentScreenshot" name="paymentScreenshot" accept="image/*"
+                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                        required>
+                </div>
+
+                <div>
+                    <button type="submit" id="submitButton"
+                        class="mt-8 w-full text-black bg-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-base px-5 py-2.5 text-center dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-800 inline-flex items-center justify-center transition-all duration-300 ease-in-out">
+                        Submit Payment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50 backdrop-blur-sm">
+        <div class="p-6 rounded-lg shadow-lg w-full max-w-md mx-4 sm:mx-0">
+            <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                <!-- Modal content -->
+                <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                    <div
+                        class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900 p-2 flex items-center justify-center mx-auto mb-3.5">
+                        <svg aria-hidden="true" class="w-8 h-8 text-green-500 dark:text-green-400" fill="currentColor"
+                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="sr-only">Success</span>
+                    </div>
+                    <p class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Payment Submitted Successfully
+                    </p>
+                    <button id="continueButton" type="button"
+                        class="py-2 px-3 text-sm font-medium text-center text-black rounded-lg bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-yellow-500">
+                        Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="relative p-4 bg-black md:p-8 lg:p-10">
+        <div class="mx-auto max-w-screen-xl text-center">
+            <div class="">
+                <img src="logo.png" alt="Description of the image" class="responsive-foot">
+            </div>
+            <p
+                class="my-6 text-white mt-6 mb-4 text-2xl font-bold tracking-tight leading-none md:text-4xl lg:text-2xl text-center">
+                Contact Us</p>
+
+            <hr class="w-48 border-t-2 border-yellow-400 mx-auto my-4">
+
+            <div class="flex flex-col lg:flex-row justify-center items-center space-y-4 lg:space-y-0 lg:space-x-6">
+                <!-- Contact 1 -->
+                <div class="text-white text-l font-bold tracking-tight leading-none md:text-l lg:text-l text-center">
+                    <p>Fr. Aby Vadakumthala</p>
+                    <p class="mt-2"><a href="tel:+919495643763" class="text-yellow-400 hover:underline">9495643763</a>
+                    </p>
+                </div>
+
+                <!-- Contact 2 -->
+                <div class="text-white text-l font-bold tracking-tight leading-none md:text-l lg:text-l text-center">
+                    <p>Tom Mathew</p>
+                    <p class="mt-2"><a href="tel:+918138009028" class="text-yellow-400 hover:underline">8138009028</a>
+                    </p>
+                </div>
+
+                <!-- Contact 3 -->
+                <div class="text-white text-l font-bold tracking-tight leading-none md:text-l lg:text-l text-center">
+                    <p>Abin Mathew</p>
+                    <p class="mt-2"><a href="tel:+918848185966" class="text-yellow-400 hover:underline">8848185966</a>
+                    </p>
+                </div>
+
+                <!-- Contact 4 -->
+                <div class="text-white text-l font-bold tracking-tight leading-none md:text-l lg:text-l text-center">
+                    <p>Bennit Antony</p>
+                    <p class="mt-2"><a href="tel:+919526787543" class="text-yellow-400 hover:underline">9526787543</a>
+                    </p>
+                </div>
+            </div>
+            <div class="mt-8">
+                <img src="jy.png" alt="Description of the image" class="responsive-jy">
+            </div>
+            <div class="mt-2">
+                <span class="text-sm text-white sm:text-center text-white">Copyright © Changanacherry Campus
+                    Ministry - All Rights Reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Firebase configuration (replace with your actual config)
+        const firebaseConfig = {
+            // Your Firebase config here
+            apiKey: "AIzaSyDZtw8L1uKsCxpJjPb9zjY9y9v_bTXDUzw",
+            authDomain: "campus-meet-24.firebaseapp.com",
+            databaseURL: "https://campus-meet-24-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "campus-meet-24",
+            storageBucket: "campus-meet-24.appspot.com",
+            messagingSenderId: "399108215283",
+            appId: "1:399108215283:web:87a72c96fa6009d52ac286",
+            measurementId: "G-WTP3107W6Y",
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+
+        // Populate the dropdown with names from the database
+        function populateNameDropdown() {
+            const dropdown = document.getElementById('payerName');
+            db.collection("registrations").get().then((querySnapshot) => {
+                const options = [];
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    options.push({
+                        id: doc.id,
+                        text: `${data.name} (${data.contactNumber})`,
+                        name: data.name,
+                        contactNumber: data.contactNumber
+                    });
+                });
+
+                // Sort options alphabetically
+                options.sort((a, b) => a.text.localeCompare(b.text));
+
+                // Add sorted options to dropdown
+                options.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = JSON.stringify(option);
+                    optionElement.textContent = option.text;
+                    dropdown.appendChild(optionElement);
+                });
+            });
+        }
+
+        // Function to upload screenshot to Firebase Storage
+        async function uploadScreenshot(file, payerName, payerPhone) {
+            const storageRef = storage.ref();
+            const fileName = `${payerName}_${payerPhone}_${Date.now()}.${file.name.split('.').pop()}`;
+            const fileRef = storageRef.child(`payment_screenshots/${fileName}`);
+            await fileRef.put(file);
+            return {
+                url: await fileRef.getDownloadURL(),
+                fileName: fileName
+            };
+        }
+
+        // Function to show the success modal
+        function showSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('hidden');
+        }
+
+        // Function to hide the success modal
+        function hideSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.add('hidden');
+        }
+
+        // Handle form submission
+        document.getElementById('paymentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const submitButton = document.getElementById('submitButton');
+
+            // Change button text to "Submitting..."
+            submitButton.textContent = 'Submitting...';
+            submitButton.disabled = true; // Disable the button to prevent multiple submissions
+
+            const payerInfo = JSON.parse(form.payerName.value);
+            const paymentType = form.paymentType.value;
+            const screenshot = form.paymentScreenshot.files[0];
+
+            try {
+                // Upload screenshot to storage
+                const { url: screenshotUrl, fileName: screenshotFileName } = await uploadScreenshot(screenshot, payerInfo.name, payerInfo.contactNumber);
+
+                // Add payment info to database
+                await db.collection("payments").add({
+                    payerId: payerInfo.id,
+                    payerName: payerInfo.name,
+                    payerContactNumber: payerInfo.contactNumber,
+                    amount: parseInt(paymentType),
+                    screenshotUrl: screenshotUrl,
+                    screenshotFileName: screenshotFileName,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                // Update the registration document
+                await db.collection("registrations").doc(payerInfo.id).update({
+                    confirmation: 'Yes',
+                    paymentStatus: 'Paid',
+                    amountPaid: parseInt(paymentType)
+                });
+
+                // Show success modal
+                showSuccessModal();
+                form.reset();
+            } catch (error) {
+                console.error("Error submitting payment: ", error);
+                alert('Error submitting payment: ' + error.message);
+            } finally {
+                // Reset button text and enable it
+                submitButton.textContent = 'Submit Payment';
+                submitButton.disabled = false;
+            }
+        });
+
+        // Redirect to index.html when the continue button is clicked
+        document.getElementById('continueButton').addEventListener('click', function () {
+            window.location.href = 'index.html';
+        });
+
+        // Initialize the page
+        populateNameDropdown();
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+</body>
+
+</html>
