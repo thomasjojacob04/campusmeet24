@@ -122,7 +122,7 @@
                 <div>
                     <label for="payerName"
                         class="block mt-8 mb-4 text-lg font-medium text-gray-900 dark:text-white">Select Your
-                        Name(verify your Phone No.) <span class="text-red-500">*</span></label>
+                        Name(verify your email) <span class="text-red-500">*</span></label>
                     <select id="payerName" name="payerName"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                         required>
@@ -283,9 +283,9 @@
                     const data = doc.data();
                     options.push({
                         id: doc.id,
-                        text: `${data.name} (${data.contactNumber})`,
+                        text: `${data.name} (${data.email})`,
                         name: data.name,
-                        contactNumber: data.contactNumber
+                        email: data.email
                     });
                 });
 
@@ -303,9 +303,9 @@
         }
 
         // Function to upload screenshot to Firebase Storage
-        async function uploadScreenshot(file, payerName, payerPhone) {
+        async function uploadScreenshot(file, payerName, payerEmail) {
             const storageRef = storage.ref();
-            const fileName = `${payerName}_${payerPhone}_${Date.now()}.${file.name.split('.').pop()}`;
+            const fileName = `${payerName}_${payerEmail}_${Date.now()}.${file.name.split('.').pop()}`;
             const fileRef = storageRef.child(`payment_screenshots/${fileName}`);
             await fileRef.put(file);
             return {
@@ -342,13 +342,13 @@
 
             try {
                 // Upload screenshot to storage
-                const { url: screenshotUrl, fileName: screenshotFileName } = await uploadScreenshot(screenshot, payerInfo.name, payerInfo.contactNumber);
+                const { url: screenshotUrl, fileName: screenshotFileName } = await uploadScreenshot(screenshot, payerInfo.name, payerInfo.email);
 
                 // Add payment info to database
                 await db.collection("payments").add({
                     payerId: payerInfo.id,
                     payerName: payerInfo.name,
-                    payerContactNumber: payerInfo.contactNumber,
+                    payerEmail: payerInfo.email,
                     amount: parseInt(paymentType),
                     screenshotUrl: screenshotUrl,
                     screenshotFileName: screenshotFileName,
