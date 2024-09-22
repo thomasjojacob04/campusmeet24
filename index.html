@@ -855,9 +855,12 @@
 
         /* Custom styles for transparent navbar */
         .navbar-transparent {
-            background-color: #00000075;
-            backdrop-filter: blur(5px);
+            background-color: #000000;
         }
+
+        body {
+        padding-top: 64px; /* Adjust this value based on the actual height of your header */
+    }
     </style>
 </head>
 
@@ -908,7 +911,7 @@
             <!-- Content with Fade-In Animation -->
             <div data-aos="zoom-in-up"
                 class="relative flex flex-col justify-center min-h-screen z-10 px-4 mx-auto max-w-screen-xl text-center rounded-lg fade-in">
-                <div class="centered-container">
+                <div class="mt-[-100px] centered-container">
                     <img src="logo.png" alt="Description of the image" class="responsive-img">
                 </div>
                 <div class="mt-4 centered-container">
