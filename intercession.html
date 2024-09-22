@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Intercession</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('intercessionbg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.85), rgb(0, 0, 0, 0.85));
+            z-index: -1;
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translatey(0px);
+            }
+
+            50% {
+                transform: translatey(-20px);
+            }
+
+            100% {
+                transform: translatey(0px);
+            }
+        }
+
+        .counter-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+        }
+
+        .counter-button {
+            background-color: #FABF00;
+            color: #312E81;
+            font-size: 2rem;
+            padding: 0.5rem;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s;
+        }
+
+        .counter-button:hover {
+            background-color: #ffce2e;
+        }
+
+        .counter-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            flex-grow: 1;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-4 relative">
+    <div class="max-w-4xl w-full z-10">
+        <h1 class="text-4xl font-bold mb-8 text-center text-yellow-400">CAMPUS MEET INTERCESSION</h1>
+        <div class="bg-white bg-opacity-20 mb-6 backdrop-filter backdrop-blur-lg p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 float-animation"
+            style="animation-delay: 0.2s;">
+            <h2 class="text-2xl font-semibold mb-3 text-yellow-400">Campus Meet Prayer</h2>
+            <p class="text-xs text-white mb-4">കർത്താവായ ദൈവമേ/ സ്വർഗരാജ്യം ഞങ്ങളുടെ കലാലയങ്ങളിൽ വരുവാനും/ ദൈവസ്നേഹത്താൽ
+                ജ്വലിക്കുന്ന ഹൃദയങ്ങളുള്ള യുവജനങ്ങൾ രൂപപ്പെടുവാനുമായി/ ജീസസ് യൂത്ത് ഒരുക്കുന്ന Campus Meet 2024 നെ
+                അങ്ങയുടെ കരങ്ങളിലേക്ക് ഞങ്ങൾ സമർപ്പിക്കുന്നു. ഏക സത്യ ദൈവമായ അങ്ങയെ/ ശരിയായി അറിഞ്ഞു വിശ്വസിക്കുവാൻ/
+                അങ്ങയുടെ മഹത്വത്തിനായി/ അങ്ങ് സൃഷ്ടിച്ചു രൂപംകൊടുത്ത യുവജനതയെ/ ഈ ക്യാമ്പസ് മീറ്റിലേയ്ക്ക് അങ്ങ്
+                ആകർഷിക്കണമേ. ഈ നൂറ്റാണ്ടിൻ്റെ വിശുദ്ധർ/ ഇവിടെനിന്ന് ഉയർന്നുവരുവാൻ/ പരിശുദ്ധാത്മാവ് ശക്തമായി ഞങ്ങളുടെ
+                ഇടയിൽ ആവസിക്കട്ടെ. ഈ പ്രോഗ്രാമിൻ്റെ ഒരുക്കങ്ങളെയും/ അതൊരുക്കുന്നവരെയും/ അങ്ങയുടെ തിരുരക്തം കൊണ്ട് കഴുകി
+                വിശുദ്ധീകരിക്കണമേ. നിത്യം പിതാവും പുത്രനും പരിശുദ്ധാത്മാവുമായ സർവ്വേശ്വരാ എന്നേക്കും.<br>ആമേൻ</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 float-animation"
+                style="animation-delay: 0s;">
+                <h2 class="text-2xl font-semibold mb-3 text-yellow-400">Campus Meet Prayer</h2>
+                <p class="text-sm text-white mb-4">Recite Campus Meet prayer given above.</p>
+                <div class="counter-container">
+                    <button class="counter-button" onclick="updateCount('prayer', -1)">-</button>
+                    <span id="prayer-count" class="counter-value">0</span>
+                    <button class="counter-button" onclick="updateCount('prayer', 1)">+</button>
+                </div>
+            </div>
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 float-animation"
+                style="animation-delay: 0.4s;">
+                <h2 class="text-2xl font-semibold mb-3 text-yellow-400">Holy Mass</h2>
+                <p class="text-sm text-white mb-4">Submit Campus Meet 24 in your Holy Mass.</p>
+                <div class="counter-container">
+                    <button class="counter-button" onclick="updateCount('holymass', -1)">-</button>
+                    <span id="holymass-count" class="counter-value">0</span>
+                    <button class="counter-button" onclick="updateCount('holymass', 1)">+</button>
+                </div>
+            </div>
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 float-animation"
+                style="animation-delay: 0.2s;">
+                <h2 class="text-2xl font-semibold mb-3 text-yellow-400">Adoration</h2>
+                <p class="text-sm text-white mb-4">Intercede for Campus Meet by sitting infront of the Holy Eucharist.</p>
+                <div class="counter-container">
+                    <button class="counter-button" onclick="updateAdoration(-15)">-</button>
+                    <span id="adoration-count" class="counter-value">0 mins</span>
+                    <button class="counter-button" onclick="updateAdoration(15)">+</button>
+                </div>
+            </div>
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 float-animation"
+                style="animation-delay: 0.2s;">
+                <h2 class="text-2xl font-semibold mb-3 text-yellow-400">Rosary</h2>
+                <p class="text-sm text-white mb-4">Praying with Mamma Mary for Campus Meet.</p>
+                <div class="counter-container">
+                    <button class="counter-button" onclick="updateCount('rosary', -1)">-</button>
+                    <span id="rosary-count" class="counter-value">0</span>
+                    <button class="counter-button" onclick="updateCount('rosary', 1)">+</button>
+                </div>
+            </div>
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 float-animation"
+                style="animation-delay: 0.2s;">
+                <h2 class="text-2xl font-semibold mb-3 text-yellow-400">Divine Mercy Chaplet</h2>
+                <p class="text-sm text-white mb-4">Pray for Campus Meet remembering Christ's sorrowful Passion.</p>
+                <div class="counter-container">
+                    <button class="counter-button" onclick="updateCount('divinemercy', -1)">-</button>
+                    <span id="divinemercy-count" class="counter-value">0</span>
+                    <button class="counter-button" onclick="updateCount('divinemercy', 1)">+</button>
+                </div>
+            </div>
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 float-animation"
+                style="animation-delay: 0.2s;">
+                <h2 class="text-2xl font-semibold mb-3 text-yellow-400">Memorare</h2>
+                <p class="text-sm text-white mb-4">Seeking the help of Mamma Mary for Campus Meet.</p>
+                <div class="counter-container">
+                    <button class="counter-button" onclick="updateCount('memorare', -1)">-</button>
+                    <span id="memorare-count" class="counter-value">0</span>
+                    <button class="counter-button" onclick="updateCount('memorare', 1)">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            // Add your Firebase configuration here
+            apiKey: "AIzaSyDZtw8L1uKsCxpJjPb9zjY9y9v_bTXDUzw",
+            authDomain: "campus-meet-24.firebaseapp.com",
+            databaseURL: "https://campus-meet-24-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "campus-meet-24",
+            storageBucket: "campus-meet-24.appspot.com",
+            messagingSenderId: "399108215283",
+            appId: "1:399108215283:web:87a72c96fa6009d52ac286",
+            measurementId: "G-WTP3107W6Y",
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Get a reference to Firestore
+        const db = firebase.firestore();
+
+        // Function to update count in Firestore and UI
+        function updateCount(item, change) {
+            const countRef = db.collection('prayers').doc(item);
+
+            return db.runTransaction((transaction) => {
+                return transaction.get(countRef).then((doc) => {
+                    if (!doc.exists) {
+                        transaction.set(countRef, { count: Math.max(0, change) });
+                        return Math.max(0, change);
+                    }
+
+                    const newCount = Math.max(0, doc.data().count + change);
+                    transaction.update(countRef, { count: newCount });
+                    return newCount;
+                });
+            }).then((newCount) => {
+                console.log('Intercession for Campus Meet updated!');
+                updateUI(item, newCount);
+            }).catch((error) => {
+                console.error('Transaction failed: ', error);
+            });
+        }
+
+        // Special function for adoration
+        function updateAdoration(change) {
+            const countRef = db.collection('prayers').doc('adoration');
+
+            return db.runTransaction((transaction) => {
+                return transaction.get(countRef).then((doc) => {
+                    if (!doc.exists) {
+                        transaction.set(countRef, { minutes: Math.max(0, change) });
+                        return Math.max(0, change);
+                    }
+
+                    const newMinutes = Math.max(0, doc.data().minutes + change);
+                    transaction.update(countRef, { minutes: newMinutes });
+                    return newMinutes;
+                });
+            }).then((newMinutes) => {
+                console.log('Adoration time updated!');
+                updateUI('adoration', newMinutes);
+            }).catch((error) => {
+                console.error('Transaction failed: ', error);
+            });
+        }
+
+        // Function to update UI
+        function updateUI(item, count) {
+            const countElement = document.getElementById(`${item}-count`);
+            if (item === 'adoration') {
+                countElement.textContent = `${count} mins`;
+            } else {
+                countElement.textContent = count;
+            }
+
+            // Add a quick pulse animation on count change
+            countElement.classList.add('scale-125');
+            setTimeout(() => {
+                countElement.classList.remove('scale-125');
+            }, 150);
+        }
+
+        // Function to initialize counts from Firestore
+        function initializeCounts() {
+            const items = ['prayer', 'holymass', 'rosary', 'divinemercy', 'memorare'];
+            items.forEach(item => {
+                db.collection('prayers').doc(item).onSnapshot((doc) => {
+                    if (doc.exists) {
+                        updateUI(item, doc.data().count || 0);
+                    } else {
+                        updateUI(item, 0);
+                    }
+                }, (error) => {
+                    console.error("Error getting document:", error);
+                });
+            });
+
+            // Special case for adoration
+            db.collection('prayers').doc('adoration').onSnapshot((doc) => {
+                if (doc.exists) {
+                    updateUI('adoration', doc.data().minutes || 0);
+                } else {
+                    updateUI('adoration', 0);
+                }
+            }, (error) => {
+                console.error("Error getting document:", error);
+            });
+        }
+
+        // Initialize counts when the page loads
+        initializeCounts();
+    </script>
+</body>
+
+</html>
