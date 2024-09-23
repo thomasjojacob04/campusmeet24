@@ -59,7 +59,7 @@
                     <select id="sortBy" class="bg-white border border-gray-300 rounded-md px-2 py-1 w-full sm:w-auto">
                         <option value="timestamp_asc">Registration Time (Oldest First)</option>
                         <option value="timestamp_desc">Registration Time (Newest First)</option>
-                        <option value="confirmation_desc">Confirmed Participants</option>
+                        <option value="confirmed">Confirmed Participants</option>
                         <option value="college">Campus</option>
                     </select>
                 </div>
@@ -401,28 +401,27 @@
 
             let filteredData = [...allRegistrations];
 
-            // Apply campus filter only when sorting by college
-            if (sortBy === 'college' && campusFilter) {
+            // Apply campus filter
+            if (campusFilter) {
                 filteredData = filteredData.filter(reg => reg.college === campusFilter);
             }
 
-            // Apply sorting
-            const [field, direction] = sortBy.split('_');
-            filteredData.sort((a, b) => {
-                if (field === 'timestamp') {
-                    // Assuming there's a 'timestamp' field in your registration data
-                    return direction === 'asc' ? a.timestamp - b.timestamp : b.timestamp - a.timestamp;
-                } else if (field === 'college') {
-                    return direction === 'asc' ?
-                        a.college.localeCompare(b.college) :
-                        b.college.localeCompare(a.college);
-                } else if (field === 'confirmation') {
-                    // Sort by confirmation status (confirmed first)
-                    const confirmationOrder = { 'Yes': 0, 'No': 1, '': 2 };
-                    return confirmationOrder[a.confirmation || ''] - confirmationOrder[b.confirmation || ''];
-                }
-                return 0;
-            });
+            // Apply sorting and additional filtering
+            switch (sortBy) {
+                case 'timestamp_asc':
+                    filteredData.sort((a, b) => a.timestamp - b.timestamp);
+                    break;
+                case 'timestamp_desc':
+                    filteredData.sort((a, b) => b.timestamp - a.timestamp);
+                    break;
+                case 'college':
+                    filteredData.sort((a, b) => a.college.localeCompare(b.college));
+                    break;
+                case 'confirmed':
+                    filteredData = filteredData.filter(reg => reg.confirmation === 'Yes');
+                    filteredData.sort((a, b) => a.name.localeCompare(b.name)); // Sort confirmed participants by name
+                    break;
+            }
 
             displayData(filteredData);
         }
