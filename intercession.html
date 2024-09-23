@@ -118,6 +118,16 @@
                     <div class="text-yellow-400 font-bold text-sm mb-1">Memorare</div>
                     <div class="text-white text-lg font-bold" id="summary-memorare">0</div>
                 </div>
+                <div
+                    class="bg-black bg-opacity-50 rounded-xl p-3 text-center transform hover:scale-105 transition-transform duration-300 flex flex-col justify-center h-24">
+                    <div class="text-yellow-400 font-bold text-sm mb-1">Our Father</div>
+                    <div class="text-white text-lg font-bold" id="summary-ourfather">0</div>
+                </div>
+                <div
+                    class="bg-black bg-opacity-50 rounded-xl p-3 text-center transform hover:scale-105 transition-transform duration-300 flex flex-col justify-center h-24">
+                    <div class="text-yellow-400 font-bold text-sm mb-1">Hail Mary</div>
+                    <div class="text-white text-lg font-bold" id="summary-hailmary">0</div>
+                </div>
             </div>
         </div>
 
@@ -194,6 +204,26 @@
                     <button class="counter-button" onclick="updateCount('memorare', 1)">+</button>
                 </div>
             </div>
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 float-animation"
+                style="animation-delay: 0.2s;">
+                <h2 class="text-2xl font-semibold mb-3 text-yellow-400">Our Father</h2>
+                <p class="text-sm text-white mb-4">Pray the Lord's Prayer for Campus Meet.</p>
+                <div class="counter-container">
+                    <button class="counter-button" onclick="updateCount('ourfather', -1)">-</button>
+                    <span id="ourfather-count" class="counter-value">0</span>
+                    <button class="counter-button" onclick="updateCount('ourfather', 1)">+</button>
+                </div>
+            </div>
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 float-animation"
+                style="animation-delay: 0.2s;">
+                <h2 class="text-2xl font-semibold mb-3 text-yellow-400">Hail Mary</h2>
+                <p class="text-sm text-white mb-4">Pray the Hail Mary for Campus Meet.</p>
+                <div class="counter-container">
+                    <button class="counter-button" onclick="updateCount('hailmary', -1)">-</button>
+                    <span id="hailmary-count" class="counter-value">0</span>
+                    <button class="counter-button" onclick="updateCount('hailmary', 1)">+</button>
+                </div>
+            </div>
         </div>
 
         <!-- Update Button -->
@@ -252,7 +282,7 @@
 
         // Function to update Firestore and reset local counts
         function updateFirestore() {
-            const items = ['prayer', 'holymass', 'rosary', 'divinemercy', 'memorare', 'adoration'];
+            const items = ['prayer', 'holymass', 'rosary', 'divinemercy', 'memorare', 'adoration', 'ourfather', 'hailmary'];
             const batch = db.batch();
 
             items.forEach(item => {
@@ -283,7 +313,7 @@
 
         // Function to initialize summary from Firestore
         function initializeSummary() {
-            const items = ['prayer', 'holymass', 'rosary', 'divinemercy', 'memorare', 'adoration'];
+            const items = ['prayer', 'holymass', 'rosary', 'divinemercy', 'memorare', 'adoration', 'ourfather', 'hailmary'];
             items.forEach(item => {
                 db.collection('prayers').doc(item).get().then((doc) => {
                     if (doc.exists) {
