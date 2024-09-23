@@ -85,6 +85,42 @@
 <body class="min-h-screen flex items-center justify-center p-4 relative">
     <div class="max-w-4xl w-full z-10">
         <h1 class="text-4xl font-bold mb-8 text-center text-yellow-400">CAMPUS MEET INTERCESSION</h1>
+
+        <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-xl shadow-lg mb-6 transition-transform duration-300 float-animation">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div
+                    class="bg-black bg-opacity-50 rounded-xl p-3 text-center transform hover:scale-105 transition-transform duration-300 flex flex-col justify-center h-24">
+                    <div class="text-yellow-400 font-bold text-sm mb-1">Campus Meet Prayer</div>
+                    <div class="text-white text-lg font-bold" id="summary-prayer">0</div>
+                </div>
+                <div
+                    class="bg-black bg-opacity-50 rounded-xl p-3 text-center transform hover:scale-105 transition-transform duration-300 flex flex-col justify-center h-24">
+                    <div class="text-yellow-400 font-bold text-sm mb-1">Holy Mass</div>
+                    <div class="text-white text-lg font-bold" id="summary-holymass">0</div>
+                </div>
+                <div
+                    class="bg-black bg-opacity-50 rounded-xl p-3 text-center transform hover:scale-105 transition-transform duration-300 flex flex-col justify-center h-24">
+                    <div class="text-yellow-400 font-bold text-sm mb-1">Adoration</div>
+                    <div class="text-white text-lg font-bold" id="summary-adoration">0 mins</div>
+                </div>
+                <div
+                    class="bg-black bg-opacity-50 rounded-xl p-3 text-center transform hover:scale-105 transition-transform duration-300 flex flex-col justify-center h-24">
+                    <div class="text-yellow-400 font-bold text-sm mb-1">Rosary</div>
+                    <div class="text-white text-lg font-bold" id="summary-rosary">0</div>
+                </div>
+                <div
+                    class="bg-black bg-opacity-50 rounded-xl p-3 text-center transform hover:scale-105 transition-transform duration-300 flex flex-col justify-center h-24">
+                    <div class="text-yellow-400 font-bold text-sm mb-1">Divine Mercy</div>
+                    <div class="text-white text-lg font-bold" id="summary-divinemercy">0</div>
+                </div>
+                <div
+                    class="bg-black bg-opacity-50 rounded-xl p-3 text-center transform hover:scale-105 transition-transform duration-300 flex flex-col justify-center h-24">
+                    <div class="text-yellow-400 font-bold text-sm mb-1">Memorare</div>
+                    <div class="text-white text-lg font-bold" id="summary-memorare">0</div>
+                </div>
+            </div>
+        </div>
+
         <div class="bg-white bg-opacity-20 mb-6 backdrop-filter backdrop-blur-lg p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 float-animation"
             style="animation-delay: 0.2s;">
             <h2 class="text-2xl font-semibold mb-3 text-yellow-400">Campus Meet Prayer</h2>
@@ -120,7 +156,8 @@
             <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 float-animation"
                 style="animation-delay: 0.2s;">
                 <h2 class="text-2xl font-semibold mb-3 text-yellow-400">Adoration</h2>
-                <p class="text-sm text-white mb-4">Intercede for Campus Meet by sitting infront of the Holy Eucharist.</p>
+                <p class="text-sm text-white mb-4">Intercede for Campus Meet by sitting infront of the Holy Eucharist.
+                </p>
                 <div class="counter-container">
                     <button class="counter-button" onclick="updateAdoration(-15)">-</button>
                     <span id="adoration-count" class="counter-value">0 mins</span>
@@ -158,6 +195,14 @@
                 </div>
             </div>
         </div>
+
+        <!-- Update Button -->
+        <div class="mt-6 text-center">
+            <button id="update-button"
+                class="bg-yellow-400 text-black font-bold py-2 px-4 rounded hover:bg-yellow-500 transition-colors duration-300">
+                Update Prayers
+            </button>
+        </div>
     </div>
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
@@ -186,60 +231,12 @@
         // Get a reference to Firestore
         const db = firebase.firestore();
 
-        // Function to update count in Firestore and UI
+        // Function to update count in UI
         function updateCount(item, change) {
-            const countRef = db.collection('prayers').doc(item);
-
-            return db.runTransaction((transaction) => {
-                return transaction.get(countRef).then((doc) => {
-                    if (!doc.exists) {
-                        transaction.set(countRef, { count: Math.max(0, change) });
-                        return Math.max(0, change);
-                    }
-
-                    const newCount = Math.max(0, doc.data().count + change);
-                    transaction.update(countRef, { count: newCount });
-                    return newCount;
-                });
-            }).then((newCount) => {
-                console.log('Intercession for Campus Meet updated!');
-                updateUI(item, newCount);
-            }).catch((error) => {
-                console.error('Transaction failed: ', error);
-            });
-        }
-
-        // Special function for adoration
-        function updateAdoration(change) {
-            const countRef = db.collection('prayers').doc('adoration');
-
-            return db.runTransaction((transaction) => {
-                return transaction.get(countRef).then((doc) => {
-                    if (!doc.exists) {
-                        transaction.set(countRef, { minutes: Math.max(0, change) });
-                        return Math.max(0, change);
-                    }
-
-                    const newMinutes = Math.max(0, doc.data().minutes + change);
-                    transaction.update(countRef, { minutes: newMinutes });
-                    return newMinutes;
-                });
-            }).then((newMinutes) => {
-                console.log('Adoration time updated!');
-                updateUI('adoration', newMinutes);
-            }).catch((error) => {
-                console.error('Transaction failed: ', error);
-            });
-        }
-
-        // Function to update UI
-        function updateUI(item, count) {
             const countElement = document.getElementById(`${item}-count`);
-            if (item === 'adoration') {
-                countElement.textContent = `${count} mins`;
-            } else {
-                countElement.textContent = count;
-            }
+            let currentCount = parseInt(countElement.textContent);
+            currentCount = Math.max(0, currentCount + change);
+            countElement.textContent = item === 'adoration' ? `${currentCount} mins` : currentCount;
 
             // Add a quick pulse animation on count change
             countElement.classList.add('scale-125');
@@ -248,35 +245,63 @@
             }, 150);
         }
 
-        // Function to initialize counts from Firestore
-        function initializeCounts() {
-            const items = ['prayer', 'holymass', 'rosary', 'divinemercy', 'memorare'];
+        // Special function for adoration
+        function updateAdoration(change) {
+            updateCount('adoration', change);
+        }
+
+        // Function to update Firestore and reset local counts
+        function updateFirestore() {
+            const items = ['prayer', 'holymass', 'rosary', 'divinemercy', 'memorare', 'adoration'];
+            const batch = db.batch();
+
             items.forEach(item => {
-                db.collection('prayers').doc(item).onSnapshot((doc) => {
-                    if (doc.exists) {
-                        updateUI(item, doc.data().count || 0);
-                    } else {
-                        updateUI(item, 0);
-                    }
-                }, (error) => {
-                    console.error("Error getting document:", error);
-                });
+                const countElement = document.getElementById(`${item}-count`);
+                let count;
+                if (item === 'adoration') {
+                    count = parseInt(countElement.textContent);
+                } else {
+                    count = parseInt(countElement.textContent);
+                }
+
+                const itemRef = db.collection('prayers').doc(item);
+                batch.set(itemRef, { count: firebase.firestore.FieldValue.increment(count) }, { merge: true });
+
+                // Reset local count
+                countElement.textContent = item === 'adoration' ? '0 mins' : '0';
             });
 
-            // Special case for adoration
-            db.collection('prayers').doc('adoration').onSnapshot((doc) => {
-                if (doc.exists) {
-                    updateUI('adoration', doc.data().minutes || 0);
-                } else {
-                    updateUI('adoration', 0);
-                }
-            }, (error) => {
-                console.error("Error getting document:", error);
+            // Commit the batch
+            batch.commit().then(() => {
+                console.log('Prayers updated successfully!');
+                // Refresh the summary after update
+                initializeSummary();
+            }).catch((error) => {
+                console.error('Error updating prayers: ', error);
             });
         }
 
-        // Initialize counts when the page loads
-        initializeCounts();
+        // Function to initialize summary from Firestore
+        function initializeSummary() {
+            const items = ['prayer', 'holymass', 'rosary', 'divinemercy', 'memorare', 'adoration'];
+            items.forEach(item => {
+                db.collection('prayers').doc(item).get().then((doc) => {
+                    if (doc.exists) {
+                        const count = doc.data().count || 0;
+                        const summaryElement = document.getElementById(`summary-${item}`);
+                        summaryElement.textContent = item === 'adoration' ? `${count} mins` : count;
+                    }
+                }).catch((error) => {
+                    console.error("Error getting document:", error);
+                });
+            });
+        }
+
+        // Initialize summary when the page loads
+        initializeSummary();
+
+        // Add event listener to update button
+        document.getElementById('update-button').addEventListener('click', updateFirestore);
     </script>
 </body>
 
