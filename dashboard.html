@@ -359,7 +359,7 @@
 
             // Process and display college data in graph
             const sortedColleges = Object.entries(collegeData).sort((a, b) => b[1] - a[1]);
-            const maxCount = Math.max(...sortedColleges.map(c => c[1]));
+            const maxCount = 50; // Set maximum count to 50
 
             sortedColleges.forEach(([college, count], index) => {
                 const percentage = (count / maxCount) * 100;
