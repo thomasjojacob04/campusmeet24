@@ -596,7 +596,6 @@
             }
         }
 
-        // Function to convert table data to CSV
         function convertToCSV(data) {
             const headers = [
                 "S.No", "Name", "Gender", "Contact", "Email", "Address", "College",
@@ -607,6 +606,7 @@
             data.forEach((reg, index) => {
                 const row = [
                     index + 1,
+                    // new Date(reg.timestamp).toLocaleString(), // Convert timestamp to readable date
                     reg.name,
                     reg.gender,
                     reg.contactNumber,
@@ -643,7 +643,10 @@
 
         // Event listener for Export to CSV button
         document.getElementById('exportCSV').addEventListener('click', function () {
-            const csvContent = convertToCSV(allRegistrations);
+            // Sort the registrations by timestamp (oldest first)
+            const sortedRegistrations = [...allRegistrations].sort((a, b) => a.timestamp - b.timestamp);
+
+            const csvContent = convertToCSV(sortedRegistrations);
             downloadCSV(csvContent);
         });
 
